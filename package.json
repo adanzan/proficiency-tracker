@@ -1,11 +1,20 @@
 {
-  "name": "project-starter",
+  "name": "project-kakapo",
+  "description": "A proficiency tracker for use in a classroom setting, by both students and professors.",
   "version": "0.1.0",
   "private": true,
-  "author": "Your name here",
+  "author": "Kakapo",
+  "git": "https://github.com/csci0312-f22/project-kakapo",
   "contributors": [
     "Christopher Andrews <candrews@middlebury.edu>",
-    "Michael Linderman <mlinderman@middlebury.edu>"
+    "Michael Linderman <mlinderman@middlebury.edu>",
+    "Danzan Achit-Erdene",
+    "Blair Jia",
+    "Evey Kriter",
+    "Julia Fairbank",
+    "Kent Canonigo",
+    "Nellie Zhang",
+    "Smith Gakuya"
   ],
   "scripts": {
     "dev": "next dev",
