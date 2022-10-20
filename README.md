@@ -5,4 +5,4 @@
 A proficiency tracker for use in a classroom setting, by both students and professors.
 
 Firebase link:
-https://console.firebase.google.com/u/2/project/project-kakapo/overview
+https://project-kakapo.web.app
