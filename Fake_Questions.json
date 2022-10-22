@@ -1,0 +1,138 @@
+[
+    {
+    "learning goal": 1, 
+    "question": "What is a cat?",
+    "choices": ["Dog","Elephant","Turtle","Cat"],
+    "answer": "Cat"
+    },
+
+    {
+    "learning goal": 1, 
+    "question": "What is a typical lifespan of a cat?",
+    "choices": ["12-18 years","20-22 years","0-4 years","6-12 years"],
+    "answer": "12-18 years"
+    },
+    {
+    "learning goal": 1, 
+    "question": "Which is NOT a breed of cat?",
+    "choices": ["Siamese","British Shorthair","Persian","Poodle"],
+    "answer": "Poodle"
+    },
+    {
+    "learning goal": 1, 
+    "question": "What do cats love?",
+    "choices": ["Watermelon","Onions","Catnip","Dog Food"],
+    "answer": "Catnip"
+    },
+    {
+    "learning goal": 1, 
+    "question": "What is a baby cat called?",
+    "choices": ["Foal","Kitten","Puppy","Hatchling"],
+    "answer": "Kitten"
+    },
+
+
+    {
+    "learning goal": 2, 
+    "question": "Where are the headquarters of Subaru?",
+    "choices": ["Japan","Korea","China","Germany"],
+    "answer": "Japan"
+    },
+
+    {
+    "learning goal": 2, 
+    "question": "Which car of the following is not a model of Honda?",
+    "choices": ["Accord","Pilot","Camry","Civic"],
+    "answer": "Camry"
+    },
+    {
+    "learning goal": 2, 
+    "question": "What is the best selling car of all time?",
+    "choices": ["Toyota Corolla","Ford Model T","Volkswagen Beetle","Subaru Impreza"],
+    "answer": "Toyota Corolla"
+    },
+    {
+    "learning goal": 2, 
+    "question": "What is a car?",
+    "choices": ["Airplane","Boat","Car","Aircraft Carrier"],
+    "answer": "Car"
+    },
+    {
+    "learning goal": 2, 
+    "question": "How many people can you safely fit into a Honda Accord?",
+    "choices": ["5","4","7","13"],
+    "answer": "5"
+    },
+
+    {
+    "learning goal": 3, 
+    "question": "What is NOT a berry?",
+    "choices": ["Blueberry","Strawberry","Raspberry","Banana"],
+    "answer": "Strawberry"
+    },
+
+    {
+    "learning goal": 3, 
+    "question": "Which of the following is considered a tropical fruit",
+    "choices": ["Apple","Grape","Papaya","Orange"],
+    "answer": "Papaya"
+    },
+    {
+    "learning goal": 3, 
+    "question": "What was the first vegetable grown in space?",
+    "choices": ["Celery","Potato","Squash","Carrot"],
+    "answer": "Potato"
+    },
+    {
+    "learning goal": 3, 
+    "question": "What apple variant is native to North America?",
+    "choices": ["Crabapple","Gala","Honeycrisp","Empire"],
+    "answer": "Crabapple"
+    },
+    {
+    "learning goal": 3, 
+    "question": "Which of the following is NOT a citrus fruit",
+    "choices": ["Orange","Pomelo","Lime","Watermelon"],
+    "answer": "Watermelon"
+    },
+
+
+    {
+    "learning goal": 4, 
+    "question": "Which is not a starter pokemon in Pokemon Emerald?",
+    "choices": ["Mudkip","Treeko","Torchic","Squirtle"],
+    "answer": "Squirtle"
+    },
+
+    {
+    "learning goal": 4, 
+    "question": "what is the bestselling Pokemon game?",
+    "choices": ["Pokemon Red/Green/Blue","Pokemon Leafgreen/Firered","Pokemon Heartgold/Soulsilver","Pokemon Pearl/Diamond"],
+    "answer": "Pokemon Red/Green/Blue"
+    },
+    {
+    "learning goal": 4, 
+    "question": "Which pokemon is the only pokemon that can devolve?",
+    "choices": ["Raichu","Slowbro","Machamp","Torterra"],
+    "answer": "Slowbro"
+    },
+    {
+    "learning goal": 4, 
+    "question": "What was the first pokemon ever created?",
+    "choices": ["Pikachu","Rayquaza","Rhydon","Pidgey"],
+    "answer": "Rhydon"
+    },
+    {
+    "learning goal": 4, 
+    "question": "what type of Pokemon are effective against Normal type Pokemon?",
+    "choices": ["Fighting","Dragon","Ice","Bug"],
+    "answer": "Fighting"
+    }
+
+
+    
+
+
+
+
+]
