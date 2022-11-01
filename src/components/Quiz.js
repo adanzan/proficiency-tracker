@@ -14,7 +14,7 @@ export function Quiz() {
   const questions = data.map((question) => {
     //to filter which questions go in, placeholder
     //if condition is met create a Question object and add it to questions list
-    if (question["learning goal"] === 1) {
+    if (question["learningGoal"] === 1) {
       return <li key={question.question}>{question.question}</li>;
     }
   });
