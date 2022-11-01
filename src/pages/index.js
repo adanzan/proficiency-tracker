@@ -1,23 +1,18 @@
-
 import Head from "next/head";
-
 import styles from "../styles/index.module.css";
-
+import { Quiz } from "../components/Quiz";
 
 export default function Main() {
-  
-
   return (
     <div className={styles.container}>
       <Head>
-        <title>Generic project</title>
+        <title>Progress Tracker</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className="title">Generic Project</h1>
-        <p>This component is just a placeholder and should be replaced with your application</p>
-        
+        <h1 className="title">Progress Tracker</h1>
+        <Quiz />
       </main>
 
       <footer>A 312 project</footer>
