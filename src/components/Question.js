@@ -25,7 +25,7 @@ export default function Question({ question, selectAnswer }) {
     );
   });
 
-  console.log(selectedAnswer);
+  console.log(selectAnswer);
 
   return (
     <div>
