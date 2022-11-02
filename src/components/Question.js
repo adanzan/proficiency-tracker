@@ -5,7 +5,7 @@
 
   props:
     question - the question to render (required) with properties learningGoal, question, choices, and answer
-    setCurrentAnswer - callback function to set the current answer of which answer option has been selected 
+    selectAnswer - callback function to set the current answer of which answer option has been selected 
 */
 
 import PropTypes from "prop-types";
