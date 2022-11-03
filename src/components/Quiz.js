@@ -13,7 +13,7 @@ import { useState } from "react";
 
 export function Quiz({ learningGoals }) {
   const [answer, selectAnswer] = useState();
-  console.log(answer);
+  //console.log(answer);
   //just for testing
   const filteredQuestions = data.map((q) => {
     //to filter which questions go in, placeholder
