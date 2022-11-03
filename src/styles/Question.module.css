@@ -5,3 +5,7 @@
   border-width: 1em;
   padding: 200px;
 }
+
+.li:hover {
+  font-weight: bold;
+}
