@@ -10,7 +10,7 @@ import data from "../../data/Fake_Questions.json";
 import styles from "../styles/Quiz.module.css";
 import Question from "./Question.js";
 
-export function Quiz({ learningGoals }) {
+export function Quiz({ learningGoals, handleClick }) {
   //just for testing
   const filteredQuestions = data.map((q) => {
     //to filter which questions go in, placeholder
@@ -38,7 +38,14 @@ export function Quiz({ learningGoals }) {
       {/* Placeholder, will need to dynamically change quiz name */}
       <h2>Quiz 1</h2>
       {condition}
-      <button>Submit</button>
+      <button
+        type="button"
+        onClick={() => {
+          handleClick();
+        }}
+      >
+        Submit
+      </button>
     </div>
   );
 }
@@ -47,4 +54,5 @@ Quiz.propTypes = {
   setResult: PropTypes.func,
   calculateResults: PropTypes.func,
   learningGoals: PropTypes.array,
+  handleClick: PropTypes.func,
 };
