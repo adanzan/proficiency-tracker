@@ -10,22 +10,31 @@
 
 import PropTypes from "prop-types";
 import QuestionShape from "./QuestionShape";
-// import { useState } from "react";
-
+import styles from "../styles/Question.module.css";
+import { useState } from "react";
 export default function Question({ question, selectAnswer }) {
+  const [activeIndex, setActiveIndex] = useState(null);
+
   // Display the question title
   const questionTitle = <div> {question.question} </div>;
 
   // Display answer choices
-  const answerChoices = question.choices.map((choice) => {
+  const answerChoices = question.choices.map((choice, index) => {
     return (
-      <li key={choice} id="choice" onClick={() => selectAnswer(choice)}>
+      <li
+        className={styles.li}
+        key={choice}
+        style={{ fontWeight: activeIndex === index ? "bold" : "lighter" }}
+        id="choice"
+        onClick={() => {
+          setActiveIndex(index);
+          selectAnswer(choice);
+        }}
+      >
         {choice}
       </li>
     );
   });
-
-  console.log(selectAnswer);
 
   return (
     <div>

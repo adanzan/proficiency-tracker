@@ -9,8 +9,11 @@ import PropTypes from "prop-types";
 import data from "../../data/Fake_Questions.json";
 import styles from "../styles/Quiz.module.css";
 import Question from "./Question.js";
+import { useState } from "react";
 
 export function Quiz({ learningGoals, handleClick }) {
+  const [answer, selectAnswer] = useState();
+  console.log(answer);
   //just for testing
   const filteredQuestions = data.map((q) => {
     //to filter which questions go in, placeholder
@@ -19,7 +22,7 @@ export function Quiz({ learningGoals, handleClick }) {
       if (q["learningGoal"] === parseInt(learningGoals[i])) {
         return (
           <li key={q.question}>
-            <Question question={q} />
+            <Question question={q} selectAnswer={selectAnswer} />
           </li>
         );
       }
