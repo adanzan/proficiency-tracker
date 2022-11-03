@@ -8,28 +8,35 @@
 import PropTypes from "prop-types";
 import data from "../../data/Fake_Questions.json";
 import styles from "../styles/Quiz.module.css";
+import Question from "./Question.js";
 
-export function Quiz() {
+export function Quiz({ learningGoals }) {
   //just for testing
-  const questions = data.map((question) => {
+  const filteredQuestions = data.map((q) => {
     //to filter which questions go in, placeholder
     //if condition is met create a Question object and add it to questions list
-    if (question["learningGoal"] === 1) {
-      return <li key={question.question}>{question.question}</li>;
+    for (let i = 0; i < learningGoals.length; i++) {
+      if (q["learningGoal"] === parseInt(learningGoals[i])) {
+        return (
+          <li key={q.question}>
+            <Question question={q} />
+          </li>
+        );
+      }
     }
   });
 
   const condition =
-    questions === undefined ? (
+    filteredQuestions === undefined ? (
       <p> No questions to display</p>
     ) : (
-      <ol>{questions}</ol>
+      <ol>{filteredQuestions}</ol>
     );
 
   return (
     <div className={styles.round}>
       {/* Placeholder, will need to dynamically change quiz name */}
-      <h2>Quiz1</h2>
+      <h2>Quiz 1</h2>
       {condition}
       <button>Submit</button>
     </div>
@@ -39,4 +46,5 @@ export function Quiz() {
 Quiz.propTypes = {
   setResult: PropTypes.func,
   calculateResults: PropTypes.func,
+  learningGoals: PropTypes.array,
 };
