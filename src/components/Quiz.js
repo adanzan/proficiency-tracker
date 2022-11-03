@@ -11,9 +11,9 @@ import styles from "../styles/Quiz.module.css";
 import Question from "./Question.js";
 import { useState } from "react";
 
-export function Quiz({ learningGoals }) {
+export function Quiz({ learningGoals, handleClick }) {
   const [answer, selectAnswer] = useState();
-  //console.log(answer);
+  console.log(answer);
   //just for testing
   const filteredQuestions = data.map((q) => {
     //to filter which questions go in, placeholder
