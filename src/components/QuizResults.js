@@ -15,14 +15,14 @@ export default function QuizResults() {
   selectedAnswers.forEach((selectedAnswer) => {
     if (Correct_Answers.includes(selectedAnswer)) {
       selectedAnswerCorrect.push({
-        qID: `${selectedAnswer.qID}`,
-        answer: `${selectedAnswer.answer}`,
+        qID: selectedAnswer.qID,
+        answer: selectedAnswer.answer,
         correct: true,
       });
     } else {
       selectedAnswerCorrect.push({
-        qID: `${selectedAnswer.qID}`,
-        answer: `${selectedAnswer.answer}`,
+        qID: selectedAnswer.qID,
+        answer: selectedAnswer.answer,
         correct: false,
       });
     }

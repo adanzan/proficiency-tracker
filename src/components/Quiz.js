@@ -9,31 +9,31 @@ import PropTypes from "prop-types";
 import data from "../../data/Fake_Questions.json";
 import styles from "../styles/Quiz.module.css";
 import Question from "./Question.js";
-import { useState } from "react";
+// import { useState } from "react";
 
-export function Quiz({ learningGoals, handleClick }) {
-  // Map on each question to fill out the empty array
-  const initialQuizState = [];
-  data.map((q) => {
-    initialQuizState.push({ id: q.qID, answer: "" });
-  });
-  //console.log(initialQuizState);
-
+export function Quiz({ learningGoals, handleClick, quizState, setQuizState }) {
   // Each quiz has one quiz state that gets updated when we click submit
-  const [quizState, setQuizState] = useState(initialQuizState);
-  const handler = (qID, selectedAnswer) => {
-    const quizStateCopy = [...quizState];
-    // Take the old answer out
-    quizStateCopy.filter((element) => element.id !== qID);
-    //console.log(quizStateCopy);
-    quizStateCopy.push({ id: qID, answer: selectedAnswer });
-    setQuizState(quizStateCopy);
-    console.log(quizStateCopy);
+
+  console.log(quizState, setQuizState);
+
+  // Testing
+  console.log(quizState);
+  // Map on each question to fill out the empty array
+  const quizStateArray = [];
+  data.map((q) => {
+    quizStateArray.push({ id: q.qID, answer: "" });
+  });
+
+  const selectAnswer = (qID, selectedAnswer) => {
+    const index = quizStateArray.findIndex((q) => q.id === qID);
+    quizStateArray.splice(index, 1, { id: qID, answer: selectedAnswer });
   };
 
-  //Update quizState
-  //setQuizState()
-  // Maybe deep copy the setquizstate and then change the specific id for it
+  function submitButtonFunction() {
+    const quizStateArrayCopy = [...quizStateArray];
+    setQuizState(quizStateArrayCopy);
+    handleClick();
+  }
 
   const filteredQuestions = data.map((q) => {
     //to filter which questions go in, placeholder
@@ -42,7 +42,7 @@ export function Quiz({ learningGoals, handleClick }) {
       if (q["learningGoal"] === parseInt(learningGoals[i])) {
         return (
           <li key={q.question}>
-            <Question question={q} selectAnswer={handler} />
+            <Question question={q} selectAnswer={selectAnswer} />
           </li>
         );
       }
@@ -64,7 +64,7 @@ export function Quiz({ learningGoals, handleClick }) {
       <button
         type="button"
         onClick={() => {
-          handleClick();
+          submitButtonFunction();
         }}
       >
         Submit
@@ -78,4 +78,6 @@ Quiz.propTypes = {
   calculateResults: PropTypes.func,
   learningGoals: PropTypes.array,
   handleClick: PropTypes.func,
+  quizState: PropTypes.any,
+  setQuizState: PropTypes.any,
 };
