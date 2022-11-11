@@ -5,4 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url("../images/code.jpeg");
 }
+
+.text{
+  color: rgb(255, 255, 255);
+}
+
