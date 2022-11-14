@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { getApp, initializeApp } from "firebase/app";
-import {  initializeFirestore, connectFirestoreEmulator, getFirestore, collection, doc, addDoc, deleteDoc, getDocs } from "firebase/firestore";
+import {  initializeFirestore, connectFirestoreEmulator, getFirestore, collection, doc, addDoc, deleteDoc, getDocs , setDoc} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -79,7 +79,14 @@ export async function addStudent(first, last, id){
     "id": id,
   }
 
-  await addDoc(collectionRef, student);
+  const attempts = {
+    "attempt": 1,
+    "score": 10,
+    "answers": [{"question1" : "A cow is a goat"},{"question2" : "A goat is a cow"}]
+  }
+
+  await setDoc(doc(collectionRef, student.id), student);
+  await setDoc(doc(collectionRef, student.id, "quizAttempts", `attempt${attempts.attempt}`), attempts);
 }
 
 export async function addProfessor(first, last, id){
