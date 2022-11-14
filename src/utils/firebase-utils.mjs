@@ -79,14 +79,19 @@ export async function addStudent(first, last, id){
     "id": id,
   }
 
-  const attempts = {
-    "attempt": 1,
-    "score": 10,
-    "answers": [{"question1" : "A cow is a goat"},{"question2" : "A goat is a cow"}]
+  await setDoc(doc(collectionRef, student.id), student);
+}
+
+export async function updateStudentResults(studentId, attemptNo, score, answers){
+  const collectionRef = collection(db, "students");
+
+  const attempt = {
+    "attemptNo": attemptNo,
+    "score": score,
+    "answers": answers,
   }
 
-  await setDoc(doc(collectionRef, student.id), student);
-  await setDoc(doc(collectionRef, student.id, "quizAttempts", `attempt${attempts.attempt}`), attempts);
+  await setDoc(doc(collectionRef, studentId, "quizAttempts", `attempt${attempt.attemptNo}`), attempt);
 }
 
 export async function addProfessor(first, last, id){
