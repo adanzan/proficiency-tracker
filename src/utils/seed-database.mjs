@@ -1,5 +1,5 @@
 /**
- * This loads the film collection
+ * This loads the questionBank collection
  */
 
 
