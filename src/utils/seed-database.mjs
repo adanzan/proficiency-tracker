@@ -7,6 +7,8 @@
  import {readFileSync} from "node:fs";
  
  import {
+     addProfessor,
+   addStudent,
    initializeFirebase,
    loadData,
  } from "./firebase-utils.mjs";
@@ -19,6 +21,8 @@
  
    initializeFirebase();
    await loadData(data, "questionBank");
+   await addProfessor("Christoper", "Andrews", "1");
+   await addStudent("Smith", "Gakuya", "00739649")
   
    console.log("Seeding complete");
  }

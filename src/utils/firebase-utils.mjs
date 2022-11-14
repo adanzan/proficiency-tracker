@@ -68,6 +68,34 @@ export async function loadData(data, collectionName){
   }));
 }
 
+export async function addStudent(first, last, id){
+  const db = getFirestore();
+
+  const collectionRef = collection(db, "students");
+
+  const student = {
+    "first": first,
+    "last": last,
+    "id": id,
+  }
+
+  await addDoc(collectionRef, student);
+}
+
+export async function addProfessor(first, last, id){
+  const db = getFirestore();
+
+  const collectionRef = collection(db, "professors");
+  const professor = {
+    "first": first,
+    "last": last,
+    "profId": id,
+  }
+
+  await addDoc(collectionRef, professor);
+  
+}
+
 
 /**
  * This function is designed to remove all documents from a 
