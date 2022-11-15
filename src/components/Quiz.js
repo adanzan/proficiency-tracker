@@ -14,10 +14,9 @@ import Question from "./Question.js";
 export function Quiz({ learningGoals, handleClick, quizState, setQuizState }) {
   // Each quiz has one quiz state that gets updated when we click submit
 
-  console.log(quizState, setQuizState);
-
   // Testing
   console.log(quizState);
+
   // Map on each question to fill out the empty array
   const quizStateArray = [];
   data.map((q) => {
