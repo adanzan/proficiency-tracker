@@ -50,11 +50,13 @@ export async function loadData(data, collectionName){
   await Promise.all(data.map(async (d)=>{
     // add the document to firestore
     const questionAnswerObj = {
+      "type": "questionAnswer",
       "qID" : d.qID,
       "question" : d.question,
       "answer" : d.answer
     }
     const questionChoiceObj = {
+      "type": "questionChoice",
       "qID" : d.qID,
       "question" : d.question,
       "choices" : d.choices,
@@ -82,8 +84,31 @@ export async function addStudent(first, last, id){
   await setDoc(doc(collectionRef, student.id), student);
 }
 
-export async function updateStudentResults(studentId, attemptNo, score, answers){
+async function previousHighScore(quizNo, studentId){
+  const db = getFirestore();
+  let prev = undefined;
+  const collectionSnapshot = await getDocs(collection(db, "students", studentId, "quizResults"));
+  collectionSnapshot.forEach((document) => {
+    if(document.id === `quiz${quizNo}`){
+      prev = document.data();
+    }
+  });
+  return (prev === undefined ? 0 : prev.bestScore);
+}
+
+export async function updateStudentResults(quizNo, learningGoal,  studentId, attemptNo, score, answers){
+  const db = getFirestore();
+
   const collectionRef = collection(db, "students");
+
+  const hScore = await previousHighScore(quizNo, studentId);
+
+  const quizObj = {
+    "quizId": quizNo,
+    "learningGoal": learningGoal,
+    "bestScore": score > hScore ? score : hScore
+    ,
+  }
 
   const attempt = {
     "attemptNo": attemptNo,
@@ -91,7 +116,8 @@ export async function updateStudentResults(studentId, attemptNo, score, answers)
     "answers": answers,
   }
 
-  await setDoc(doc(collectionRef, studentId, "quizAttempts", `attempt${attempt.attemptNo}`), attempt);
+  await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`), quizObj);
+  await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`, "attempts", `attempt ${attempt.attemptNo}`), attempt);
 }
 
 export async function addProfessor(first, last, id){
@@ -106,6 +132,21 @@ export async function addProfessor(first, last, id){
 
   await addDoc(collectionRef, professor);
   
+}
+
+export async function getQuestions(learningGoals){
+  const db = getFirestore();
+  const collectionSnapshot = await getDocs(collection(db, "questionBank"))
+  const questions = [];
+  learningGoals.forEach((learningGoal) => {
+    collectionSnapshot.forEach((document) => {
+      if(document.data().type === "questionChoice" && document.data().learningGoal === learningGoal){
+          questions.push(document.data());
+      }
+    })
+  });
+  console.log(questions);
+  return questions;
 }
 
 

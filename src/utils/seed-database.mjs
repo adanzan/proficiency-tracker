@@ -9,8 +9,10 @@
  import {
      addProfessor,
    addStudent,
+   getQuestions,
    initializeFirebase,
    loadData,
+   updateStudentResults,
  } from "./firebase-utils.mjs";
  
  
@@ -22,7 +24,10 @@
    initializeFirebase();
    await loadData(data, "questionBank");
    await addProfessor("Christoper", "Andrews", "1");
-   await addStudent("Smith", "Gakuya", "00739649")
+   await addStudent("Smith", "Gakuya", "00739649");
+   await updateStudentResults("1", "animals", "00739649", "3", "10", []);
+   await updateStudentResults("1", "animals", "00739649", "4", "50", [{"q1": "cow"}, {"q2" : "dog"}]);
+   await getQuestions([1]);
   
    console.log("Seeding complete");
  }
