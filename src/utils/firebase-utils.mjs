@@ -33,14 +33,7 @@ export function initializeFirebase(){
     }
   }
 
-  /**
- * This is a helper function for bulk loading a collection. 
- * 
- * The main reason to use this is for seeding or testing.
- * 
- * @param {*} data - an Array of objects to be stored as documents
- * @param {string} collectionName  - the name of the collection
- */
+//Function that seeds questions into databases
 export async function loadData(data, collectionName){
 
   const db = getFirestore();
@@ -84,6 +77,7 @@ export async function addStudent(first, last, id){
   await setDoc(doc(collectionRef, student.id), student);
 }
 
+//Helper function to get highest score in a particular quiz
 async function previousHighScore(quizNo, studentId){
   const db = getFirestore();
   let prev = undefined;
@@ -96,6 +90,7 @@ async function previousHighScore(quizNo, studentId){
   return (prev === undefined ? 0 : prev.bestScore);
 }
 
+//Updates students results in a particular quiz and also updates bestScore in that quiz
 export async function updateStudentResults(quizNo, learningGoal,  studentId, attemptNo, score, answers){
   const db = getFirestore();
 
@@ -134,6 +129,7 @@ export async function addProfessor(first, last, id){
   
 }
 
+//Takes in a list of learningGoals and returns questions that meet that criteria
 export async function getQuestions(learningGoals){
   const db = getFirestore();
   const collectionSnapshot = await getDocs(collection(db, "questionBank"))
