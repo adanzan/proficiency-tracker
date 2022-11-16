@@ -22,7 +22,7 @@
    const data = JSON.parse(contents);
  
    initializeFirebase();
-   await loadData(data, "questionBank");
+   await loadData(data);
    await addProfessor("Christoper", "Andrews", "1");
    await addStudent("Smith", "Gakuya", "00739649");
    await updateStudentResults("1", "animals", "00739649", "3", "10", []);

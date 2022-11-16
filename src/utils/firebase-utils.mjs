@@ -34,30 +34,28 @@ export function initializeFirebase(){
   }
 
 //Function that seeds questions into databases
-export async function loadData(data, collectionName){
+export async function loadData(data){
 
   const db = getFirestore();
 
-  const collectionRef = collection(db, collectionName);
+  const queAnsRef = collection(db, "queAnsObjs");
+  const queChoRef = collection(db, "queChoObjs");
 
   await Promise.all(data.map(async (d)=>{
     // add the document to firestore
     const questionAnswerObj = {
-      "type": "questionAnswer",
       "qID" : d.qID,
-      "question" : d.question,
       "answer" : d.answer
     }
     const questionChoiceObj = {
-      "type": "questionChoice",
       "qID" : d.qID,
       "question" : d.question,
       "choices" : d.choices,
       "learningGoal" : d.learningGoal
     }
 
-    await addDoc(collectionRef, questionAnswerObj);
-    await addDoc(collectionRef, questionChoiceObj);
+    await addDoc(queAnsRef, questionAnswerObj);
+    await addDoc(queChoRef, questionChoiceObj);
 
 
   }));
@@ -132,11 +130,11 @@ export async function addProfessor(first, last, id){
 //Takes in a list of learningGoals and returns questions that meet that criteria
 export async function getQuestions(learningGoals){
   const db = getFirestore();
-  const collectionSnapshot = await getDocs(collection(db, "questionBank"))
+  const collectionSnapshot = await getDocs(collection(db, "queChoObjs"))
   const questions = [];
   learningGoals.forEach((learningGoal) => {
     collectionSnapshot.forEach((document) => {
-      if(document.data().type === "questionChoice" && document.data().learningGoal === learningGoal){
+      if(document.data().learningGoal === learningGoal){
           questions.push(document.data());
       }
     })
