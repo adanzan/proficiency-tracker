@@ -13,14 +13,11 @@ import QuestionShape from "./QuestionShape";
 import styles from "../styles/QuestionResult.module.css";
 
 export default function QuestionResult({ question, studentAnswer }) {
-  console.log("student Answer is", studentAnswer);
-
   // Display the question title
   const questionTitle = <div> {question.question} </div>;
 
   // Display answer choices
   const answerChoices = question.choices.map((choice) => {
-    // console.log(choice)
     const fontweightStyle = {
       fontWeight: choice === studentAnswer.answer ? "bold" : "lighter",
     };
@@ -35,7 +32,6 @@ export default function QuestionResult({ question, studentAnswer }) {
         colorStyle = "red";
       }
     }
-    // console.log(colorStyle);
 
     return (
       <li

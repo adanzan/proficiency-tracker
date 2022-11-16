@@ -36,10 +36,21 @@ export default function QuizResults() {
     },
   ];
 
+  const correctAnswersCopy = [...Correct_Answers];
+  //answer.qID === questions[index].qID
+  //correctAnswers = correctAnswersCopy.find((answer,index) => console.log(answer) )
+  const correctAnswers = [];
+  questions.forEach((question, index) => {
+    const answer = correctAnswersCopy.find(
+      (ans) => ans.qID === questions[index].qID
+    );
+    correctAnswers.push(answer);
+  });
+
   // Evaluates the answers
   const selectedAnswerCorrect = [];
-  studentAnswers.forEach((selectedAnswer) => {
-    if (Correct_Answers.includes(selectedAnswer)) {
+  studentAnswers.forEach((selectedAnswer, index) => {
+    if (selectedAnswer.answer === correctAnswers[index].answer) {
       selectedAnswerCorrect.push({
         qID: selectedAnswer.qID,
         answer: selectedAnswer.answer,
@@ -53,8 +64,6 @@ export default function QuizResults() {
       });
     }
   });
-
-  console.log("hi", selectedAnswerCorrect);
 
   const displayQuestionResults = questions.map((q, index) => {
     return (

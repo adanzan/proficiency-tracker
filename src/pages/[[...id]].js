@@ -10,7 +10,6 @@ import { useState } from "react";
 
 export default function Main() {
   const [quizState, setQuizState] = useState([]);
-  console.log(quizState);
 
   const router = useRouter();
   // Testing
