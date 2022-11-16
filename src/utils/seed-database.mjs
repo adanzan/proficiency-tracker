@@ -7,7 +7,7 @@
  import {readFileSync} from "node:fs";
  
  import {
-     addProfessor,
+ addProfessor,
    addStudent,
    getQuestions,
    initializeFirebase,
