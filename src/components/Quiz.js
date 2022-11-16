@@ -39,11 +39,11 @@ export function Quiz({ learningGoals, handleClick }) {
     );
 
   return (
-      <div className= {styles.round}>
+      <div className={styles.round}>
         {/* Placeholder, will need to dynamically change quiz name */}
         <h2>Quiz 1</h2>
         {condition}
-        <Button variant="outline-dark" onClick={() => {handleClick();}}> Submit </Button>
+        <Button variant="outline-dark" onClick={() => {handleClick()}}> Submit </Button>
       </div>
           
   );
