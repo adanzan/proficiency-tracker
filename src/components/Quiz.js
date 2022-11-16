@@ -43,7 +43,7 @@ export function Quiz({ learningGoals, handleClick }) {
         {/* Placeholder, will need to dynamically change quiz name */}
         <h2>Quiz 1</h2>
         {condition}
-        <Button variant="outline-dark" onClick={() => {handleClick();}}> Submit </Button>
+        <Button variant="outline-dark" onClick={() => {handleClick()}}> Submit </Button>
       </div>
           
   );
