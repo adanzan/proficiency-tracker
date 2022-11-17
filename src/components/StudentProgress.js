@@ -5,5 +5,5 @@
 */
 
 export default function studentProgress() {
-  return <div>HelloWorld</div>;
+  return <div>Some sort of data</div>;
 }
