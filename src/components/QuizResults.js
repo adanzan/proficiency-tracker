@@ -37,8 +37,7 @@ export default function QuizResults() {
   ];
 
   const correctAnswersCopy = [...Correct_Answers];
-  //answer.qID === questions[index].qID
-  //correctAnswers = correctAnswersCopy.find((answer,index) => console.log(answer) )
+  // Changes the array of correctAnswers so that they have the same ordering as questions
   const correctAnswers = [];
   questions.forEach((question, index) => {
     const answer = correctAnswersCopy.find(
@@ -50,21 +49,14 @@ export default function QuizResults() {
   // Evaluates the answers
   const selectedAnswerCorrect = [];
   studentAnswers.forEach((selectedAnswer, index) => {
-    if (selectedAnswer.answer === correctAnswers[index].answer) {
-      selectedAnswerCorrect.push({
-        qID: selectedAnswer.qID,
-        answer: selectedAnswer.answer,
-        correct: true,
-      });
-    } else {
-      selectedAnswerCorrect.push({
-        qID: selectedAnswer.qID,
-        answer: selectedAnswer.answer,
-        correct: false,
-      });
-    }
+    selectedAnswerCorrect.push({
+      qID: selectedAnswer.qID,
+      answer: selectedAnswer.answer,
+      correct: selectedAnswer.answer === correctAnswers[index].answer,
+    });
   });
 
+  // Creates a questionResult object from the student answers
   const displayQuestionResults = questions.map((q, index) => {
     return (
       <div key={q.question}>
@@ -79,7 +71,6 @@ export default function QuizResults() {
   return (
     <div className={styles.round}>
       <h2>Quiz 1 Results</h2>
-      {/*will need to implement some way to calculate score (in Quiz?)*/}
       {displayQuestionResults}
       <button type="button">View Learning Goal Progress</button>
     </div>
