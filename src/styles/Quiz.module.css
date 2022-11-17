@@ -1,7 +1,13 @@
 .round {
-  border-style: double solid;
-  border-radius: 25px;
-  border-color: burlywood;
   border-width: 1em;
-  padding: 200px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 200px;
+  padding-right: 200px;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: .3rem;
+
 }
+
+
