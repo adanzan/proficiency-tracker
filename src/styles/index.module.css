@@ -5,6 +5,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 3rem auto;
-  max-width: 600px;
+  background-image: url("../images/code.jpeg");
+}
+
+.text {
+  color: rgb(255, 255, 255);
 }

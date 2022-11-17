@@ -1,0 +1,85 @@
+[
+  {
+    "qID": 1,
+    "answer": "Cat"
+  },
+  {
+    "qID": 2,
+    "answer": "12-18 years"
+  },
+  {
+    "qID": 3,
+    "answer": "Poodle"
+  },
+  {
+    "qID": 4,
+    "answer": "Catnip"
+  },
+  {
+    "qID": 5,
+    "answer": "Kitten"
+  },
+
+  {
+    "qID": 6,
+    "answer": "Japan"
+  },
+  {
+    "qID": 7,
+    "answer": "Camry"
+  },
+  {
+    "qID": 8,
+    "answer": "Toyota Corolla"
+  },
+  {
+    "qID": 9,
+    "answer": "Car"
+  },
+  {
+    "qID": 10,
+    "answer": "5"
+  },
+
+  {
+    "qID": 11,
+    "answer": "Strawberry"
+  },
+  {
+    "qID": 12,
+    "answer": "Papaya"
+  },
+  {
+    "qID": 13,
+    "answer": "Potato"
+  },
+  {
+    "qID": 14,
+    "answer": "Crabapple"
+  },
+  {
+    "qID": 15,
+    "answer": "Watermelon"
+  },
+
+  {
+    "qID": 16,
+    "answer": "Squirtle"
+  },
+  {
+    "qID": 17,
+    "answer": "Pokemon Red/Green/Blue"
+  },
+  {
+    "qID": 18,
+    "answer": "Slowbro"
+  },
+  {
+    "qID": 19,
+    "answer": "Rhydon"
+  },
+  {
+    "qID": 20,
+    "answer": "Fighting"
+  }
+]

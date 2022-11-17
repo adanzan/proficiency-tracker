@@ -2,22 +2,12 @@ import Head from "next/head";
 import styles from "../styles/index.module.css";
 import { Quiz } from "../components/Quiz";
 import { useRouter } from "next/router";
-
-//import Question from "../components/Question";
-
-// import styles from "../styles/index.module.css";
+import { useState } from "react";
 
 export default function Main() {
+  const [quizState, setQuizState] = useState([]);
+
   const router = useRouter();
-  // Testing
-  /*
-  const question = {
-    learningGoal: 1,
-    question: "What is a cat?",
-    choices: ["Dog", "Elephant", "Turtle", "Cat"],
-    answer: "Cat",
-  };
-  */
 
   const learningGoals = ["2", "4"];
 
@@ -33,12 +23,16 @@ export default function Main() {
       </Head>
 
       <main>
-        <h1 className="title">Progress Tracker</h1>
-        <Quiz learningGoals={learningGoals} handleClick={handleClick} />
-        {/* <p>This component is just a placeholder and should be replaced with your application</p> */}
+        <h1 className={styles.text}>Progress Tracker</h1>
+        <Quiz
+          learningGoals={learningGoals}
+          handleClick={handleClick}
+          quizState={quizState}
+          setQuizState={setQuizState}
+        />
       </main>
 
-      <footer>A 312 project</footer>
+      <footer className={styles.text}>A 312 project</footer>
     </div>
   );
 }
