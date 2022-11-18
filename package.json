@@ -24,7 +24,7 @@
     "test": "jest",
     "lint": "eslint src",
     "prepare": "husky install",
-    "seed": "NEXT_PUBLIC_EMULATE=true node src/utils/seed-database.mjs data/Fake_Questions.json"
+    "seed": "NEXT_PUBLIC_EMULATE=true node src/utils/seed-database.mjs data/seed.json"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
