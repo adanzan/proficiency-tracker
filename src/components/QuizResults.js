@@ -2,11 +2,12 @@
 Quiz Results page
 */
 
+import PropTypes from "prop-types";
 import Correct_Answers from "../../data/Correct_Answers.json";
 import QuestionResult from "./QuestionResult";
 import styles from "../styles/Quiz.module.css";
 
-export default function QuizResults() {
+export default function QuizResults({ attempt }) {
   // The answers submitted by the student
   const studentAnswers = [
     { qID: 2, answer: "20-22 years" },
@@ -35,6 +36,8 @@ export default function QuizResults() {
       choices: ["Dog", "Elephant", "Turtle", "Cat"],
     },
   ];
+
+  console.log(attempt);
 
   const correctAnswersCopy = [...Correct_Answers];
   // Changes the array of correctAnswers so that they have the same ordering as questions
@@ -76,3 +79,7 @@ export default function QuizResults() {
     </div>
   );
 }
+
+QuizResults.propTypes = {
+  attempt: PropTypes.arrayOf(PropTypes.object),
+};
