@@ -13,15 +13,17 @@ import Question from "./Question.js";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/Quiz.module.css";
 
-export function Quiz({ learningGoals, submitQuiz, attempt }) {
+export function Quiz({ learningGoals, submitQuiz }) {
   // Each quiz has one quiz state that gets updated when we click submit
+  //const attemptArray = Array(learningGoals.length).fill({ id: q.qID, answer: "" });
+  const attemptArray = [];
 
   const selectAnswer = (qID, selectedAnswer) => {
-    const index = attempt.findIndex((q) => q.id === qID);
-    attempt.splice(index, 1, { id: qID, answer: selectedAnswer });
+    const index = attemptArray.findIndex((q) => q.id === qID);
+    attemptArray.splice(index, 1, { id: qID, answer: selectedAnswer });
+    console.log("selectAnswer attempt", attemptArray);
   };
 
-  const attemptArray = [];
   const filteredQuestions = data.map((q) => {
     //to filter which questions go in, placeholder
     //if condition is met create a Question object and add it to questions list
@@ -39,7 +41,7 @@ export function Quiz({ learningGoals, submitQuiz, attempt }) {
     }
   });
 
-  console.log("filtered questions: ", filteredQuestions);
+  console.log(filteredQuestions);
 
   const condition =
     filteredQuestions === [] ? (
@@ -56,7 +58,7 @@ export function Quiz({ learningGoals, submitQuiz, attempt }) {
       <Button
         variant="outline-dark"
         onClick={() => {
-          submitQuiz(attempt);
+          submitQuiz(attemptArray);
         }}
       >
         Submit
@@ -69,7 +71,7 @@ Quiz.propTypes = {
   //setResult: PropTypes.func,
   //calculateResults: PropTypes.func,
   learningGoals: PropTypes.array.isRequired,
-  attempt: PropTypes.arrayOf(PropTypes.object),
+  //attempt: PropTypes.arrayOf(PropTypes.object),
   //setAttempt: PropTypes.any,
   submitQuiz: PropTypes.func.isRequired,
 };

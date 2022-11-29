@@ -53,11 +53,14 @@ export default function QuizResults({ attempt }) {
   const selectedAnswerCorrect = [];
   studentAnswers.forEach((selectedAnswer, index) => {
     selectedAnswerCorrect.push({
-      qID: selectedAnswer.qID,
+      qID: selectedAnswer.id,
       answer: selectedAnswer.answer,
       correct: selectedAnswer.answer === correctAnswers[index].answer,
     });
   });
+
+  //console.log(selectedAnswerCorrect)
+  console.log(attempt);
 
   // Creates a questionResult object from the student answers
   const displayQuestionResults = questions.map((q, index) => {
