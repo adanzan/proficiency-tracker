@@ -7,11 +7,14 @@ import { initializeFirebase } from "../utils/firebase-utils.mjs";
 function MainApp({ Component, pageProps }) {
   initializeFirebase();
   const [attempt, setAttempt] = useState([]);
+  const [quizQuestions, setQuizQuestions] = useState([]);
 
   const props = {
     ...pageProps,
     attempt,
     setAttempt,
+    quizQuestions,
+    setQuizQuestions,
   };
   return <Component {...props} />;
 }

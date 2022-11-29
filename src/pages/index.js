@@ -8,7 +8,7 @@ import { Quiz } from "../components/Quiz";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 
-export default function QuizPage({ setAttempt, attempt }) {
+export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
   const router = useRouter();
   const learningGoals = ["2", "4"];
 
@@ -16,17 +16,10 @@ export default function QuizPage({ setAttempt, attempt }) {
     router.push("/quizresults");
   }
 
-  /*
-  // Map on each question to fill out the empty array
-  const attemptArray = [];
-  data.map((q) => {
-    attemptArray.push({ id: q.qID, answer: "" });
-  });
-  */
-
-  function submitQuiz(attemptArray) {
+  function submitQuiz(attemptArray, quizQuestionsArray) {
     const attemptArrayCopy = [...attemptArray];
     setAttempt(attemptArrayCopy);
+    setQuizQuestions(quizQuestionsArray);
     handleClick();
   }
 
@@ -54,4 +47,5 @@ export default function QuizPage({ setAttempt, attempt }) {
 QuizPage.propTypes = {
   setAttempt: PropTypes.func.isRequired,
   attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setQuizQuestions: PropTypes.func.isRequired,
 };

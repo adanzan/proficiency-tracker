@@ -21,14 +21,17 @@ export function Quiz({ learningGoals, submitQuiz }) {
   const selectAnswer = (qID, selectedAnswer) => {
     const index = attemptArray.findIndex((q) => q.id === qID);
     attemptArray.splice(index, 1, { id: qID, answer: selectedAnswer });
-    console.log("selectAnswer attempt", attemptArray);
   };
 
+  const quizQuestionsArray = [];
   const filteredQuestions = data.map((q) => {
     //to filter which questions go in, placeholder
     //if condition is met create a Question object and add it to questions list
     for (let i = 0; i < learningGoals.length; i++) {
       if (q["learningGoal"] === parseInt(learningGoals[i])) {
+        if (q) {
+          quizQuestionsArray.push(q);
+        }
         return (
           attemptArray.push({ id: q.qID, answer: "" }),
           (
@@ -41,7 +44,8 @@ export function Quiz({ learningGoals, submitQuiz }) {
     }
   });
 
-  console.log(filteredQuestions);
+  console.log("quiz questions", quizQuestionsArray);
+  //use reduce function to only show defined questions
 
   const condition =
     filteredQuestions === [] ? (
@@ -58,7 +62,7 @@ export function Quiz({ learningGoals, submitQuiz }) {
       <Button
         variant="outline-dark"
         onClick={() => {
-          submitQuiz(attemptArray);
+          submitQuiz(attemptArray, quizQuestionsArray);
         }}
       >
         Submit
@@ -68,10 +72,6 @@ export function Quiz({ learningGoals, submitQuiz }) {
 }
 
 Quiz.propTypes = {
-  //setResult: PropTypes.func,
-  //calculateResults: PropTypes.func,
   learningGoals: PropTypes.array.isRequired,
-  //attempt: PropTypes.arrayOf(PropTypes.object),
-  //setAttempt: PropTypes.any,
   submitQuiz: PropTypes.func.isRequired,
 };
