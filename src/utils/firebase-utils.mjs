@@ -76,12 +76,12 @@ export async function addStudent(first, last, id){
 }
 
 //Helper function to get highest score in a particular quiz
-async function previousHighScore(quizNo, studentId){
+async function previousHighScore(lGoal, studentId){
   const db = getFirestore();
   let prev = undefined;
   const collectionSnapshot = await getDocs(collection(db, "students", studentId, "quizResults"));
   collectionSnapshot.forEach((document) => {
-    if(document.id === `quiz${quizNo}`){
+    if(document.id === lGoal){
       prev = document.data();
     }
   });
@@ -89,18 +89,15 @@ async function previousHighScore(quizNo, studentId){
 }
 
 //Updates students results in a particular quiz and also updates bestScore in that quiz
-export async function updateStudentResults(quizNo, learningGoal,  studentId, attemptNo, score, answers){
+//A quiz is a collection of questions that correspond to the given Learning Goals
+export async function updateStudentResults(learningGoals,  studentId, attemptNo, score, answers){
   const db = getFirestore();
 
   const collectionRef = collection(db, "students");
 
-  const hScore = await previousHighScore(quizNo, studentId);
 
   const quizObj = {
-    "quizId": quizNo,
-    "learningGoal": learningGoal,
-    "bestScore": score > hScore ? score : hScore
-    ,
+    "learningGoals": learningGoals,
   }
 
   const attempt = {
@@ -109,8 +106,14 @@ export async function updateStudentResults(quizNo, learningGoal,  studentId, att
     "answers": answers,
   }
 
-  await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`), quizObj);
-  await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`, "attempts", `attempt ${attempt.attemptNo}`), attempt);
+  for(const lGoal of learningGoals){
+    const hScore = await previousHighScore(lGoal, studentId);
+    quizObj.bestScore = score > hScore ? score : hScore;
+    await setDoc(doc(collectionRef, studentId, "quizResults", lGoal), quizObj);
+    await setDoc(doc(collectionRef, studentId, "quizResults", lGoal, "attempts", `attempt ${attempt.attemptNo}`), attempt);
+  }
+
+
 }
 
 export async function addProfessor(first, last, id){
