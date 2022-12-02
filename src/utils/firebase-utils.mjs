@@ -143,6 +143,8 @@ export async function getQuestions(learningGoals){
   return questions;
 }
 
+// export async function getAnswers
+
 
 /**
  * This function is designed to remove all documents from a 
