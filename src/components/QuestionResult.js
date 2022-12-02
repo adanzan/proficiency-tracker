@@ -15,7 +15,6 @@ import styles from "../styles/QuestionResult.module.css";
 
 export default function QuestionResult({ question, studentAnswer }) {
   const questionTitle = <div> {question.question} </div>;
-
   // Formats the choices based on the student answer
   const answerChoices = question.choices.map((choice) => {
     const fontWeightStyle =
