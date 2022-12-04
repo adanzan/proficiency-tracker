@@ -73,13 +73,15 @@ function performLogin(email, password, createUser) {
   fireEvent.click(loginButton);
 }
 
-describe("login: Log in page tests", () => {
+describe("Login: Log in page tests", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockRouter.setCurrentUrl("/login");
   });
 
-  describe("Login: new user tests", () => {
+  describe("Login: New user tests", () => {
+    describe("Login: New user registration element tests", () => {});
+
     test("Login: When new user, calls createUserWithEmailAndPassword", async () => {
       performLogin(newUser.email, newUser.password, true);
 
