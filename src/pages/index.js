@@ -9,6 +9,9 @@ import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useUser } from "../contexts/UserContext";
 
+// import Header from "./header";
+import HeaderButton from "../components/headerButton";
+
 export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
   const user = useUser();
   if (user) {
@@ -32,6 +35,8 @@ export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
   return (
     <div className={styles.container}>
       <Head>
+        {/* <Header/> */}
+        <HeaderButton />
         <title>Progress Tracker</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
