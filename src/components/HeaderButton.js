@@ -1,18 +1,21 @@
 import { useUser } from "../contexts/UserContext";
-import styles from "../styles/headerButton.css";
+// import styles from "../styles/headerButton.css";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.css";
+// import styles from "../styles/headerButton.css";
 
 export default function HeaderButton() {
   const user = useUser();
 
   return (
-    <div className={styles.button}>
-      <input
-        type="button"
-        onClick={() => router.push("/")}
-        value={user ? user.email : null}
-      />
+    <div>
+      <span>
+        <Button onClick={() => router.push("/")}>Home</Button>
 
-      <input type="button" onClick={() => router.push("/")} value={"Home"} />
+        <Button onClick={() => router.push("/")}>
+          {user ? user.email : "Log in"}
+        </Button>
+      </span>
     </div>
   );
 }

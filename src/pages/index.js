@@ -2,15 +2,15 @@
 Quiz Page
 */
 
-import Head from "next/head";
+//import Head from "next/head";
 import styles from "../styles/index.module.css";
 import { Quiz } from "../components/Quiz";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useUser } from "../contexts/UserContext";
+import Header from "./header";
 
 // import Header from "./header";
-import HeaderButton from "../components/headerButton";
 
 export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
   const user = useUser();
@@ -34,12 +34,7 @@ export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
 
   return (
     <div className={styles.container}>
-      <Head>
-        {/* <Header/> */}
-        <HeaderButton />
-        <title>Progress Tracker</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Header />
 
       <main>
         <h1 className={styles.text}>Progress Tracker</h1>

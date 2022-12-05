@@ -1,5 +1,5 @@
 .button {
-  background-color: transparent;
+  background-color: #4caf50; /* Green */
   background-repeat: no-repeat;
   border: none;
   padding: 15px 32px;
@@ -7,4 +7,10 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+}
+
+.flex_box_2 {
+  display: flex;
+  justify-content: flex-end;
+  outline: 2px deeppink dashed;
 }
