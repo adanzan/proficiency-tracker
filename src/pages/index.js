@@ -7,8 +7,14 @@ import styles from "../styles/index.module.css";
 import { Quiz } from "../components/Quiz";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
+import { useUser } from "../contexts/UserContext";
 
 export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
+  const user = useUser();
+  if (user) {
+    console.log("User id is: ", user.uid);
+  }
+
   const router = useRouter();
   const learningGoals = ["2", "4"];
 

@@ -23,7 +23,7 @@ export default function Login() {
   const [studentId, setStudentId] = useState("");
 
   // Validate the student id
-  // const valudateStudentId = () => {
+  // const validateStudentId = () => {
 
   // }
 
@@ -109,7 +109,7 @@ export default function Login() {
       </Head>
 
       <div>
-        <h1>Proficiency Tracker</h1>
+        <h1 onClick={() => router.push("/")}> Proficiency Tracker</h1>
         {/* If error message, display it over top */}
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         <div>
