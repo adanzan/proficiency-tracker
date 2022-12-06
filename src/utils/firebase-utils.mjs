@@ -17,7 +17,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export function initializeFirebase(){
-    try{
+    try {
       return getApp();
     } catch (e){
       // app has not been initialized
@@ -27,11 +27,10 @@ export function initializeFirebase(){
       const db = initializeFirestore(app, {useFetchStreams: false})
       // connect up the emulator to the database
       if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST){
-        console.log("Connecting to emulator");
-        connectFirestoreEmulator(db, "localhost", 8080 );
-
         const auth = getAuth();
         connectAuthEmulator(auth, "http://localhost:9099");
+        console.log("Connecting to emulator");
+        connectFirestoreEmulator(db, "localhost", 8080);
       }
       return app;
     }
@@ -80,7 +79,11 @@ export async function addStudent(first, last, id){
 
   console.log(student);
 
-  await setDoc(doc(collectionRef, student.id), student);
+  await setDoc(doc(collectionRef, `${id}`), {
+    first: first,
+    last: last,
+    id: `${id}`
+  });
 }
 
 //Helper function to get highest score in a particular quiz
