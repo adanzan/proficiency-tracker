@@ -4,11 +4,15 @@ import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import { useUser } from "../contexts/UserContext";
+
 import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+
+import { addStudent } from "../utils/firebase-utils.mjs";
 
 export default function Login() {
   const router = useRouter();
@@ -26,6 +30,8 @@ export default function Login() {
   // const validateStudentId = () => {
 
   // }
+
+  const user = useUser();
 
   const registrationInputs = (
     <div>
@@ -71,6 +77,8 @@ export default function Login() {
     if (newUser) {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
+        addStudent(firstName, lastName, user.uid);
+
         router.push("/");
       } catch (error) {
         if (error.message.includes("invalid-email")) {

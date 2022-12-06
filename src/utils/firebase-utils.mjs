@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { getApp, initializeApp } from "firebase/app";
 import {  initializeFirestore, connectFirestoreEmulator, getFirestore, collection, doc, addDoc, deleteDoc, getDocs , setDoc} from "firebase/firestore";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,6 +29,9 @@ export function initializeFirebase(){
       if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST){
         console.log("Connecting to emulator");
         connectFirestoreEmulator(db, "localhost", 8080 );
+
+        const auth = getAuth();
+        connectAuthEmulator(auth, "http://localhost:9099");
       }
       return app;
     }
@@ -66,11 +70,15 @@ export async function addStudent(first, last, id){
 
   const collectionRef = collection(db, "students");
 
+  console.log("addStudent is called");
+
   const student = {
     "first": first,
     "last": last,
     "id": id,
   }
+
+  console.log(student);
 
   await setDoc(doc(collectionRef, student.id), student);
 }
