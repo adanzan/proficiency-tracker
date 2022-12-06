@@ -10,6 +10,8 @@
 */
 
 import { useRouter } from "next/router";
+import styles from "../styles/viewing.module.css";
+
 //import StudentProgress from "./StudentProgress";
 
 const fakeStudents = [
@@ -78,7 +80,7 @@ export default function StudentList() {
     <li
       key={student.first}
       data-testid="studentID"
-      onClick={() => router.push(`/students/studentid/${student.studentID}`)}
+      onClick={() => router.push(`/professor/students/${student.studentID}`)}
       //   onChange={(event) => {
       //     setCurrentStudent(event.target.value);
       //}}
@@ -88,7 +90,7 @@ export default function StudentList() {
   ));
 
   return (
-    <div>
+    <div className={styles.round}>
       <h1>Students</h1>
       <ul>{studentNames}</ul>
     </div>

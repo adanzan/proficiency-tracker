@@ -1,19 +1,27 @@
+/*
+Quiz Page
+*/
+
 import Head from "next/head";
 import styles from "../styles/index.module.css";
 import { Quiz } from "../components/Quiz";
+import { useRouter } from "next/router";
+import PropTypes from "prop-types";
 
-import Question from "../components/Question";
+export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
+  const router = useRouter();
+  const learningGoals = ["2", "4"];
 
-// import styles from "../styles/index.module.css";
+  function handleClick() {
+    router.push("/quizresults");
+  }
 
-export default function Main() {
-  // Testing
-  const question = {
-    learningGoal: 1,
-    question: "What is a cat?",
-    choices: ["Dog", "Elephant", "Turtle", "Cat"],
-    answer: "Cat",
-  };
+  function submitQuiz(attemptArray, quizQuestionsArray) {
+    const attemptArrayCopy = [...attemptArray];
+    setAttempt(attemptArrayCopy);
+    setQuizQuestions(quizQuestionsArray);
+    handleClick();
+  }
 
   return (
     <div className={styles.container}>
@@ -23,13 +31,21 @@ export default function Main() {
       </Head>
 
       <main>
-        <h1 className="title">Progress Tracker</h1>
-        <Quiz />
-        {/* <p>This component is just a placeholder and should be replaced with your application</p> */}
-        <Question question={question} />
+        <h1 className={styles.text}>Progress Tracker</h1>
+        <Quiz
+          learningGoals={learningGoals}
+          attempt={attempt}
+          submitQuiz={submitQuiz}
+        />
       </main>
 
-      <footer>A 312 project</footer>
+      <footer className={styles.text}>A 312 project</footer>
     </div>
   );
 }
+
+QuizPage.propTypes = {
+  setAttempt: PropTypes.func.isRequired,
+  attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setQuizQuestions: PropTypes.func.isRequired,
+};

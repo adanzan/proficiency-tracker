@@ -28,7 +28,7 @@ export default function Question({ question, selectAnswer }) {
         id="choice"
         onClick={() => {
           setActiveIndex(index);
-          selectAnswer(choice);
+          selectAnswer(question.qID, choice);
         }}
       >
         {choice}
