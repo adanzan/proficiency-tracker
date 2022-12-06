@@ -11,7 +11,6 @@ const QuestionShape = PropTypes.shape({
   learningGoal: PropTypes.number.isRequired,
   question: PropTypes.string.isRequired,
   choices: PropTypes.arrayOf(PropTypes.string).isRequired,
-  answer: PropTypes.string.isRequired,
 });
 
 export default QuestionShape;

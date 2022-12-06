@@ -1,35 +1,57 @@
-import Head from "next/head";
+/*
+Quiz Page
+*/
+
+//import Head from "next/head";
 import styles from "../styles/index.module.css";
 import { Quiz } from "../components/Quiz";
+import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import { useUser } from "../contexts/UserContext";
+import Header from "./header";
 
-import Question from "../components/Question";
+// import Header from "./header";
 
-// import styles from "../styles/index.module.css";
+export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
+  const user = useUser();
+  if (user) {
+    console.log("User id is: ", user.uid);
+  }
 
-export default function Main() {
-  // Testing
-  const question = {
-    learningGoal: 1,
-    question: "What is a cat?",
-    choices: ["Dog", "Elephant", "Turtle", "Cat"],
-    answer: "Cat",
-  };
+  const router = useRouter();
+  const learningGoals = ["2", "4"];
+
+  function handleClick() {
+    router.push("/quizresults");
+  }
+
+  function submitQuiz(attemptArray, quizQuestionsArray) {
+    const attemptArrayCopy = [...attemptArray];
+    setAttempt(attemptArrayCopy);
+    setQuizQuestions(quizQuestionsArray);
+    handleClick();
+  }
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Progress Tracker</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Header />
 
       <main>
-        <h1 className="title">Progress Tracker</h1>
-        <Quiz />
-        {/* <p>This component is just a placeholder and should be replaced with your application</p> */}
-        <Question question={question} />
+        <h1 className={styles.text}>Progress Tracker</h1>
+        <Quiz
+          learningGoals={learningGoals}
+          attempt={attempt}
+          submitQuiz={submitQuiz}
+        />
       </main>
 
-      <footer>A 312 project</footer>
+      <footer className={styles.text}>A 312 project</footer>
     </div>
   );
 }
+
+QuizPage.propTypes = {
+  setAttempt: PropTypes.func.isRequired,
+  attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setQuizQuestions: PropTypes.func.isRequired,
+};

@@ -14,18 +14,22 @@
 */
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
+import styles from "../styles/viewing.module.css";
 
 export default function ProfessorView() {
   const router = useRouter();
 
   return (
-    <div>
-      <button>Create new Quiz!</button>
+    <div className={styles.round}>
+      <h1>Hello, Professor Andrews!</h1>
+
+      <button className={styles.button}>Create new Quiz!</button>
 
       <input
         type="button"
         value="Students"
-        onClick={() => router.push("/students/")}
+        onClick={() => router.push("students/")}
+        className={styles.button}
       />
     </div>
   );
