@@ -31,6 +31,6 @@ export default function ProfessorView() {
   );
 }
 
-professorView.propTypes = {
+ProfessorView.propTypes = {
   Name: PropTypes.string.isRequired,
 };
