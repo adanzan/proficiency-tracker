@@ -6,14 +6,12 @@
 */
 import "bootstrap/dist/css/bootstrap.css";
 import PropTypes from "prop-types";
-import data from "../../data/Fake_Questions.json";
 import Question from "./Question.js";
 // import { useState } from "react";
-
 import Button from "react-bootstrap/Button";
 import styles from "../styles/Quiz.module.css";
 
-export function Quiz({ learningGoals, submitQuiz }) {
+export function Quiz({ data, learningGoals, submitQuiz }) {
   // Each quiz has one quiz state that gets updated when we click submit
   //const attemptArray = Array(learningGoals.length).fill({ id: q.qID, answer: "" });
   const attemptArray = [];
@@ -44,7 +42,6 @@ export function Quiz({ learningGoals, submitQuiz }) {
     }
   });
 
-  console.log("quiz questions", quizQuestionsArray);
   //use reduce function to only show defined questions
 
   const condition =
@@ -72,6 +69,7 @@ export function Quiz({ learningGoals, submitQuiz }) {
 }
 
 Quiz.propTypes = {
-  learningGoals: PropTypes.array.isRequired,
+  learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
   submitQuiz: PropTypes.func.isRequired,
+  data: PropTypes.any,
 };
