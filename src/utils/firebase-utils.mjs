@@ -26,7 +26,7 @@ export function initializeFirebase(){
       // initialize the database
       const db = initializeFirestore(app, {useFetchStreams: false})
       // connect up the emulator to the database
-      if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST){
+      if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test"){
         const auth = getAuth();
         connectAuthEmulator(auth, "http://localhost:9099");
         console.log("Connecting to emulator");
@@ -69,21 +69,15 @@ export async function addStudent(first, last, id){
 
   const collectionRef = collection(db, "students");
 
-  console.log("addStudent is called");
-
   const student = {
     "first": first,
     "last": last,
     "id": id,
+    "middleburyId": middleburyId,
+    "instructor": instructor,
   }
 
-  console.log(student);
-
-  await setDoc(doc(collectionRef, `${id}`), {
-    first: first,
-    last: last,
-    id: `${id}`
-  });
+  await setDoc(doc(collectionRef, id), student);
 }
 
 //Helper function to get highest score in a particular quiz
@@ -127,17 +121,19 @@ export async function updateStudentResults(learningGoals,  studentId, attemptNo,
 
 }
 
-export async function addProfessor(first, last, id){
+export async function addProfessor(first, last, id, middleburyId, instructor){
   const db = getFirestore();
 
   const collectionRef = collection(db, "professors");
   const professor = {
     "first": first,
     "last": last,
-    "profId": id,
+    "id": id,
+    "middleburyId": middleburyId,
+    "instructor": instructor,
   }
 
-  await addDoc(collectionRef, professor);
+  await setDoc(doc(collectionRef, id), professor);
   
 }
 
