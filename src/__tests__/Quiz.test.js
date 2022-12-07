@@ -12,9 +12,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Quiz from "../pages/index";
 //import data from "../../data/Fake_Questions.json";
 
-// replace the router with the mock
-//jest.mock("next/router", () => require("next-router-mock"));
-
 // Questions from the question bank
 const questions = [
   {
@@ -49,7 +46,7 @@ describe("Quiz", () => {
   const testQuiz = questions.map((question) => ({ ...question }));
   const testLearningGoals = ["1", "3"];
 
-  test("Quiz: Answers recorded once after submit button clicked", () => {
+  test.only("Quiz: Answers recorded once after submit button clicked", () => {
     const submitQuiz = jest.fn();
     render(
       <Quiz
@@ -60,17 +57,17 @@ describe("Quiz", () => {
     );
 
     screen.debug();
-    //const q14Choice = screen.queryByText("Crabapple")
+    const q14Choice = screen.queryByText("Crabapple");
     const q1Choice = screen.queryByText("Elephant");
     const q3Choice = screen.queryByText("Persian");
     const q2Choice = screen.queryByText("6-12 years");
-    //const submit = screen.queryByRole("Submit")
+    const submit = screen.getByRole("button", { name: "Submit" });
 
-    //fireEvent.click(q14Choice);
+    fireEvent.click(q14Choice);
     fireEvent.click(q1Choice);
     fireEvent.click(q3Choice);
     fireEvent.click(q2Choice);
-    //fireEvent.click(submit);
+    fireEvent.click(submit);
 
     const testAttemptArray = [
       { qID: 14, answer: "Crabapple" },
@@ -80,6 +77,9 @@ describe("Quiz", () => {
     ];
     //const testAttemptArray = [{ qID: 14, answer: "" },{ qID: 1, answer: "" }, { qID: 3, answer: "" }, { qID: 2, answer: "" }]
     //const testAttemptArray = [{ qID: 1, answer: "Elephant" }, { qID: 3, answer: "Persian" }, { qID: 2, answer: "6-12 years" }]
+
+    expect(submitQuiz).toHaveBeenCalled();
+    const attemptArray = submitQuiz.mock.calls[0][0];
 
     //expect(q1Choice).toHaveStyle("font-weight: bold");
     expect(attemptArray).toBe(testAttemptArray);
@@ -103,7 +103,7 @@ describe("Quiz", () => {
     expect(choiceD).toHaveStyle("font-weight: lighter");
   });
 
-  test("Quiz: Previous user selected answers become unbolded after another answer to the question is selected", () => {
+  test("Quiz: Only select one answer at a time", () => {
     render(
       <Quiz data={testQuiz} learningGoals={["1", "3"]} submitQuiz={jest.fn()} />
     );
