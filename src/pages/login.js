@@ -66,11 +66,17 @@ export default function Login() {
   );
 
   // Adds the user to the corresponding database, saves whether they are an instructor in the db
-  const addUser = () => {
+  const addUser = async () => {
     if (instructor) {
-      addProfessor(firstName, lastName, user.uid, middleburyId, instructor);
+      await addProfessor(
+        firstName,
+        lastName,
+        user.uid,
+        middleburyId,
+        instructor
+      );
     } else {
-      addStudent(firstName, lastName, user.uid, middleburyId, instructor);
+      await addStudent(firstName, lastName, user.uid, middleburyId, instructor);
     }
   };
 
@@ -159,6 +165,7 @@ export default function Login() {
         <p>
           <input
             type="checkbox"
+            data-testid="newUserCheckbox"
             value={newUser}
             onChange={() => setNewUser(!newUser)}
           />{" "}
@@ -168,6 +175,7 @@ export default function Login() {
         <p>
           <input
             type="checkbox"
+            data-testid="InstructorCheckbox"
             value={instructor}
             onChange={() => setInstructor(!instructor)}
           />{" "}
