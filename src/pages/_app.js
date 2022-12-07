@@ -7,6 +7,7 @@ import data from "../../data/Fake_Questions.json";
 
 function MainApp({ Component, pageProps }) {
   initializeFirebase();
+  // loadData();
   const [attempt, setAttempt] = useState([]);
   const [quizQuestions, setQuizQuestions] = useState([]);
   const learningGoals = ["1", "5"];

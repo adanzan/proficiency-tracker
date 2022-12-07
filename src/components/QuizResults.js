@@ -57,8 +57,6 @@ export default function QuizResults({ attempt, quizQuestions }) {
     });
   });
 
-  console.log(attempt);
-
   // Creates a questionResult object from the student answers
   const displayQuestionResults = quizQuestions.map((q, index) => {
     return (

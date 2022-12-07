@@ -139,7 +139,7 @@ export async function getQuestions(learningGoals){
       }
     })
   });
-  console.log(questions);
+  // console.log(questions);
   return questions;
 }
 

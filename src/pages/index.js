@@ -13,6 +13,7 @@ export default function QuizPage({
   data,
   learningGoals,
   setAttempt,
+  quizQuestions,
   setQuizQuestions,
 }) {
   const router = useRouter();
@@ -40,6 +41,8 @@ export default function QuizPage({
         <Quiz
           data={data}
           learningGoals={learningGoals}
+          quizQuestions={quizQuestions}
+          setQuizQuestions={setQuizQuestions}
           submitQuiz={submitQuiz}
         />
       </main>
@@ -52,7 +55,8 @@ export default function QuizPage({
 QuizPage.propTypes = {
   setAttempt: PropTypes.func.isRequired,
   learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
-  //attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
+  quizQuestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   setQuizQuestions: PropTypes.func.isRequired,
+  //attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
   data: PropTypes.any,
 };

@@ -10,19 +10,19 @@ import Question from "./Question.js";
 // import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/Quiz.module.css";
+import { getQuestions } from "../utils/firebase-utils.mjs";
+import { useEffect } from "react";
 
-export function Quiz({ data, learningGoals, submitQuiz }) {
-  // Each quiz has one quiz state that gets updated when we click submit
-  //const attemptArray = Array(learningGoals.length).fill({ id: q.qID, answer: "" });
-  const attemptArray = [];
+async function getData(learningGoals, callback) {
+  const tempData = await getQuestions(learningGoals);
 
-  const selectAnswer = (qID, selectedAnswer) => {
-    const index = attemptArray.findIndex((q) => q.id === qID);
-    attemptArray.splice(index, 1, { id: qID, answer: selectedAnswer });
-  };
+  // const tempDataArray = Object.keys(tempData).map((key) => [Number(key), tempData[key]]);
+  const tempDataArray = Object.values(tempData);
 
-  const quizQuestionsArray = [];
-  const filteredQuestions = data.map((q) => {
+  console.log(tempDataArray);
+  console.log(tempData);
+
+  const filteredQuestions = tempDataArray.map((q) => {
     //to filter which questions go in, placeholder
     //if condition is met create a Question object and add it to questions list
     for (let i = 0; i < learningGoals.length; i++) {
@@ -42,6 +42,55 @@ export function Quiz({ data, learningGoals, submitQuiz }) {
     }
   });
 
+  callback(filteredQuestions);
+}
+export function Quiz({
+  learningGoals,
+  quizQuestions,
+  setQuizQuestions,
+  submitQuiz,
+}) {
+  // Each quiz has one quiz state that gets updated when we click submit
+  //const attemptArray = Array(learningGoals.length).fill({ id: q.qID, answer: "" });
+  const attemptArray = [];
+
+  const selectAnswer = (qID, selectedAnswer) => {
+    const index = attemptArray.findIndex((q) => q.id === qID);
+    attemptArray.splice(index, 1, { id: qID, answer: selectedAnswer });
+  };
+
+  console.log(selectAnswer);
+
+  useEffect(() => {
+    getData(learningGoals, setQuizQuestions);
+  }, []);
+
+  // const quizQuestionsCopy = [...quizQuestions]
+
+  // const filteredQuestions = quizQuestionsCopy.map((q) => {
+  //   //to filter which questions go in, placeholder
+  //   //if condition is met create a Question object and add it to questions list
+  //   for (let i = 0; i < learningGoals.length; i++) {
+  //     console.log("hello")
+  //     if (q["learningGoal"] === parseInt(learningGoals[i])) {
+  //       if (q) {
+  //         quizQuestionsArray.push(q);
+  //       }
+  //       return (
+  //         attemptArray.push({ id: q.qID, answer: "" }),
+  //         (
+  //           <li key={q.question}>
+  //             <Question question={q} selectAnswer={selectAnswer} />
+  //           </li>
+  //         )
+  //       );
+  //     }
+  //   }
+  // });
+
+  const filteredQuestions = quizQuestions;
+  //console.log(filteredQuestions);
+
   //use reduce function to only show defined questions
 
   const condition =
@@ -55,6 +104,9 @@ export function Quiz({ data, learningGoals, submitQuiz }) {
     <div className={styles.round}>
       {/* Placeholder, will need to dynamically change quiz name */}
       <h2>Quiz 1</h2>
+      <button onClick={() => console.log(testQuestions())}>
+        Print Temp Ques
+      </button>
       {condition}
       <Button
         variant="outline-dark"
@@ -70,6 +122,8 @@ export function Quiz({ data, learningGoals, submitQuiz }) {
 
 Quiz.propTypes = {
   learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  quizQuestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setQuizQuestions: PropTypes.func.isRequired,
   submitQuiz: PropTypes.func.isRequired,
   data: PropTypes.any,
 };
