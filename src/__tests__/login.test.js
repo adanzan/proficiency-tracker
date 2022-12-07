@@ -54,18 +54,18 @@ jest.mock("firebase/auth", () => ({
 }));
 
 function performLogin(email, password, createUser) {
-  const { container } = render(<Login />);
+  render(<Login />);
 
   // default state is returning user, click toggle to switch
   if (createUser) {
-    const checkbox = container.querySelector("input[type=checkbox]");
+    const checkbox = screen.getByText("New user?");
     fireEvent.click(checkbox);
   }
 
   const loginButtonText = createUser ? "Register" : "Log in";
 
-  const emailInput = container.querySelector("input[type=text]");
-  const passwordInput = container.querySelector("input[type=password]");
+  const emailInput = screen.getByPlaceholderText("email address");
+  const passwordInput = screen.getByPlaceholderText("password");
   const loginButton = screen.getByRole("button", { name: loginButtonText });
 
   fireEvent.change(emailInput, { target: { value: email } });
