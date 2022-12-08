@@ -25,9 +25,9 @@
    await loadData(data);
    await addProfessor("Christoper", "Andrews", "1");
    await addStudent("Smith", "Gakuya", "00739649");
-   await updateStudentResults("1", ["animals", "plants"], "00739649", "1", "50", [{"q1": "cow"}, {"q2" : "dog"}]);
-   await updateStudentResults("1", ["animals", "plants"], "00739649", "4", "500", [{"q1": "cow"}, {"q2" : "dog"}]);
-   await updateStudentResults("1", ["animals"], "00739649", "3", "10", []);
+   await updateStudentResults(["animals", "plants"], "00739649", "1", "50", [{"q1": "cow"}, {"q2" : "dog"}]);
+   await updateStudentResults(["animals", "plants"], "00739649", "4", "500", [{"q1": "cow"}, {"q2" : "dog"}]);
+   await updateStudentResults(["animals"], "00739649", "3", "10", []);
    await getQuestions([1]);
   
    console.log("Seeding complete");
