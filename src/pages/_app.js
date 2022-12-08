@@ -15,7 +15,7 @@ function MainApp({ Component, pageProps }) {
 
   const [user, setUser] = useState();
 
-  // Signs the user in anonymously
+  // Sign the user in
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
@@ -23,7 +23,6 @@ function MainApp({ Component, pageProps }) {
         // Log the user in
         setUser(authUser);
       } else {
-        // Sign in anonymously
         setUser();
       }
     });

@@ -4,11 +4,15 @@ import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import { useUser } from "../contexts/UserContext";
+
 import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+
+import { addProfessor, addStudent } from "../utils/firebase-utils.mjs";
 
 export default function Login() {
   const router = useRouter();
@@ -20,12 +24,9 @@ export default function Login() {
   const [instructor, setInstructor] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [studentId, setStudentId] = useState("");
+  const [middleburyId, setMiddleburyId] = useState("");
 
-  // Validate the student id
-  // const validateStudentId = () => {
-
-  // }
+  const user = useUser();
 
   const registrationInputs = (
     <div>
@@ -51,26 +52,40 @@ export default function Login() {
         />
       </div>
 
-      {!instructor && (
-        <div>
-          <p>Student ID</p>
-          <input
-            type="text"
-            size="45"
-            value={studentId}
-            placeholder="student ID"
-            onChange={(event) => setStudentId(event.target.value)}
-          />
-        </div>
-      )}
+      <div>
+        <p>Middlebury ID</p>
+        <input
+          type="text"
+          size="45"
+          value={middleburyId}
+          placeholder="middlebury ID"
+          onChange={(event) => setMiddleburyId(event.target.value)}
+        />
+      </div>
     </div>
   );
+
+  // Adds the user to the corresponding database, saves whether they are an instructor in the db
+  const addUser = async () => {
+    if (instructor) {
+      await addProfessor(
+        firstName,
+        lastName,
+        user.uid,
+        middleburyId,
+        instructor
+      );
+    } else {
+      await addStudent(firstName, lastName, user.uid, middleburyId, instructor);
+    }
+  };
 
   const handleLogin = async () => {
     const auth = getAuth();
     if (newUser) {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
+        addUser();
         router.push("/");
       } catch (error) {
         if (error.message.includes("invalid-email")) {
@@ -101,6 +116,16 @@ export default function Login() {
       }
     }
   };
+
+  // Changes whether the submit button is disabled
+  const submitDisabled =
+    (!newUser && (email === "" || password === "")) ||
+    (newUser &&
+      (email === "" ||
+        password === "" ||
+        firstName === "" ||
+        lastName === "" ||
+        middleburyId === ""));
 
   return (
     <div>
@@ -140,6 +165,7 @@ export default function Login() {
         <p>
           <input
             type="checkbox"
+            data-testid="newUserCheckbox"
             value={newUser}
             onChange={() => setNewUser(!newUser)}
           />{" "}
@@ -149,6 +175,7 @@ export default function Login() {
         <p>
           <input
             type="checkbox"
+            data-testid="InstructorCheckbox"
             value={instructor}
             onChange={() => setInstructor(!instructor)}
           />{" "}
@@ -158,7 +185,7 @@ export default function Login() {
         <div>
           <input
             type="button"
-            disabled={email === "" || password === ""}
+            disabled={submitDisabled}
             onClick={() => handleLogin()}
             value={newUser ? "Register" : "Log in"}
           />
