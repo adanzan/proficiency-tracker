@@ -2,12 +2,15 @@
 Quiz Page
 */
 
-import Head from "next/head";
+//import Head from "next/head";
 import styles from "../styles/index.module.css";
 import { Quiz } from "../components/Quiz";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-//import { propTypes } from "react-bootstrap/esm/Image";
+import { useUser } from "../contexts/UserContext";
+import Header from "./header";
+
+// import Header from "./header";
 
 export default function QuizPage({
   data,
@@ -15,6 +18,11 @@ export default function QuizPage({
   setAttempt,
   setQuizQuestions,
 }) {
+  const user = useUser();
+  if (user) {
+    console.log("User id is: ", user.uid);
+  }
+
   const router = useRouter();
 
   function handleClick() {
@@ -30,10 +38,7 @@ export default function QuizPage({
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Progress Tracker</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Header />
 
       <main>
         <h1 className={styles.text}>Progress Tracker</h1>
