@@ -64,7 +64,7 @@ export async function loadData(data){
   }));
 }
 
-export async function addStudent(first, last, id){
+export async function addStudent(first, last, id, middleburyId, instructor){
   const db = getFirestore();
 
   const collectionRef = collection(db, "students");
