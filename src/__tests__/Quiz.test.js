@@ -9,7 +9,7 @@ Quiz test
 */
 
 import { render, screen, fireEvent } from "@testing-library/react";
-import Quiz from "../pages/index";
+import Quiz from "../components/Quiz";
 //import data from "../../data/Fake_Questions.json";
 
 // Questions from the question bank
@@ -38,15 +38,21 @@ const questions = [
     question: "What apple variant is native to North America?",
     choices: ["Crabapple", "Gala", "Honeycrisp", "Empire"],
   },
+  {
+    qID: 18,
+    learningGoal: 4,
+    question: "Which pokemon is the only pokemon that can devolve?",
+    choices: ["Raichu", "Slowbro", "Machamp", "Torterra"],
+  },
 ];
 
 //const learningGoals = ["1", "3"]
 
 describe("Quiz", () => {
   const testQuiz = questions.map((question) => ({ ...question }));
-  const testLearningGoals = ["1", "3"];
 
-  test.only("Quiz: Answers recorded once after submit button clicked", () => {
+  test("Quiz: Answers recorded once after submit button clicked", () => {
+    const testLearningGoals = ["1", "3"];
     const submitQuiz = jest.fn();
     render(
       <Quiz
@@ -55,34 +61,64 @@ describe("Quiz", () => {
         submitQuiz={submitQuiz}
       />
     );
-
-    screen.debug();
     const q14Choice = screen.queryByText("Crabapple");
     const q1Choice = screen.queryByText("Elephant");
     const q3Choice = screen.queryByText("Persian");
     const q2Choice = screen.queryByText("6-12 years");
-    const submit = screen.getByRole("button", { name: "Submit" });
 
     fireEvent.click(q14Choice);
     fireEvent.click(q1Choice);
     fireEvent.click(q3Choice);
     fireEvent.click(q2Choice);
+
+    const submit = screen.getByRole("button", { name: "Submit" });
     fireEvent.click(submit);
 
     const testAttemptArray = [
-      { qID: 14, answer: "Crabapple" },
-      { qID: 1, answer: "Elephant" },
-      { qID: 3, answer: "Persian" },
       { qID: 2, answer: "6-12 years" },
+      { qID: 3, answer: "Persian" },
+      { qID: 1, answer: "Elephant" },
+      { qID: 14, answer: "Crabapple" },
     ];
-    //const testAttemptArray = [{ qID: 14, answer: "" },{ qID: 1, answer: "" }, { qID: 3, answer: "" }, { qID: 2, answer: "" }]
-    //const testAttemptArray = [{ qID: 1, answer: "Elephant" }, { qID: 3, answer: "Persian" }, { qID: 2, answer: "6-12 years" }]
 
     expect(submitQuiz).toHaveBeenCalled();
     const attemptArray = submitQuiz.mock.calls[0][0];
 
-    //expect(q1Choice).toHaveStyle("font-weight: bold");
-    expect(attemptArray).toBe(testAttemptArray);
+    expect(attemptArray).toStrictEqual(testAttemptArray);
+  });
+
+  test("Quiz: Correct questions passed to quizResults", () => {
+    const testLearningGoals = ["4", "3"];
+    const submitQuiz = jest.fn();
+    render(
+      <Quiz
+        data={testQuiz}
+        learningGoals={testLearningGoals}
+        submitQuiz={submitQuiz}
+      />
+    );
+    const testQuizQuestionsArray = [
+      {
+        qID: 14,
+        learningGoal: 3,
+        question: "What apple variant is native to North America?",
+        choices: ["Crabapple", "Gala", "Honeycrisp", "Empire"],
+      },
+      {
+        qID: 18,
+        learningGoal: 4,
+        question: "Which pokemon is the only pokemon that can devolve?",
+        choices: ["Raichu", "Slowbro", "Machamp", "Torterra"],
+      },
+    ];
+
+    const submit = screen.getByRole("button", { name: "Submit" });
+    fireEvent.click(submit);
+
+    expect(submitQuiz).toHaveBeenCalled();
+    const quizQuestionsArray = submitQuiz.mock.calls[0][1];
+
+    expect(testQuizQuestionsArray).toStrictEqual(quizQuestionsArray);
   });
 
   test("Quiz: Answers are bolded when selected", () => {
