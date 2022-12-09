@@ -4,7 +4,7 @@ Quiz Page
 
 //import Head from "next/head";
 import styles from "../styles/index.module.css";
-import { Quiz } from "../components/Quiz";
+import Quiz from "../components/Quiz";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useUser } from "../contexts/UserContext";
@@ -12,14 +12,18 @@ import Header from "./header";
 
 // import Header from "./header";
 
-export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
+export default function QuizPage({
+  data,
+  learningGoals,
+  setAttempt,
+  setQuizQuestions,
+}) {
   const user = useUser();
   if (user) {
     console.log("User id is: ", user.uid);
   }
 
   const router = useRouter();
-  const learningGoals = ["2", "4"];
 
   function handleClick() {
     router.push("/quizresults");
@@ -39,8 +43,8 @@ export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
       <main>
         <h1 className={styles.text}>Progress Tracker</h1>
         <Quiz
+          data={data}
           learningGoals={learningGoals}
-          attempt={attempt}
           submitQuiz={submitQuiz}
         />
       </main>
@@ -52,6 +56,8 @@ export default function QuizPage({ setAttempt, attempt, setQuizQuestions }) {
 
 QuizPage.propTypes = {
   setAttempt: PropTypes.func.isRequired,
-  attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
+  learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  //attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
   setQuizQuestions: PropTypes.func.isRequired,
+  data: PropTypes.any,
 };
