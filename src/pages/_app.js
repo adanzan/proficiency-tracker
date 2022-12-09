@@ -8,11 +8,14 @@ import { useRouter } from "next/router";
 import UserContext from "../contexts/UserContext.js";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeFirebase } from "../utils/firebase-utils.mjs";
+import data from "../../data/Fake_Questions.json";
+//import Fake_Questions from "../../data/Fake_Questions.json";
 
 function MainApp({ Component, pageProps }) {
   initializeFirebase();
   const [attempt, setAttempt] = useState([]);
   const [quizQuestions, setQuizQuestions] = useState([]);
+  const learningGoals = ["1", "5"];
 
   const [user, setUser] = useState();
 
@@ -35,6 +38,8 @@ function MainApp({ Component, pageProps }) {
 
   const props = {
     ...pageProps,
+    data,
+    learningGoals,
     attempt,
     setAttempt,
     quizQuestions,

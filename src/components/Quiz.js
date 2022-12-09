@@ -6,21 +6,19 @@
 */
 import "bootstrap/dist/css/bootstrap.css";
 import PropTypes from "prop-types";
-import data from "../../data/Fake_Questions.json";
 import Question from "./Question.js";
 // import { useState } from "react";
-
 import Button from "react-bootstrap/Button";
 import styles from "../styles/Quiz.module.css";
 
-export function Quiz({ learningGoals, submitQuiz }) {
+export default function Quiz({ data, learningGoals, submitQuiz }) {
   // Each quiz has one quiz state that gets updated when we click submit
   //const attemptArray = Array(learningGoals.length).fill({ id: q.qID, answer: "" });
   const attemptArray = [];
 
   const selectAnswer = (qID, selectedAnswer) => {
-    const index = attemptArray.findIndex((q) => q.id === qID);
-    attemptArray.splice(index, 1, { id: qID, answer: selectedAnswer });
+    const index = attemptArray.findIndex((q) => q.qID === qID);
+    attemptArray.splice(index, 1, { qID: qID, answer: selectedAnswer });
   };
 
   const quizQuestionsArray = [];
@@ -33,7 +31,7 @@ export function Quiz({ learningGoals, submitQuiz }) {
           quizQuestionsArray.push(q);
         }
         return (
-          attemptArray.push({ id: q.qID, answer: "" }),
+          attemptArray.push({ qID: q.qID, answer: "" }),
           (
             <li key={q.question}>
               <Question question={q} selectAnswer={selectAnswer} />
@@ -44,7 +42,6 @@ export function Quiz({ learningGoals, submitQuiz }) {
     }
   });
 
-  console.log("quiz questions", quizQuestionsArray);
   //use reduce function to only show defined questions
 
   const condition =
@@ -72,6 +69,7 @@ export function Quiz({ learningGoals, submitQuiz }) {
 }
 
 Quiz.propTypes = {
-  learningGoals: PropTypes.array.isRequired,
+  learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
   submitQuiz: PropTypes.func.isRequired,
+  data: PropTypes.any,
 };
