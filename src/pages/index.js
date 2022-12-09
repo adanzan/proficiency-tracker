@@ -1,63 +1,32 @@
 /*
-Quiz Page
+Learning Goals Page 
 */
+import Head from "next/head";
+import LearningGoals from "../components/LearningGoals";
 
-//import Head from "next/head";
-import styles from "../styles/index.module.css";
-import Quiz from "../components/Quiz";
-import { useRouter } from "next/router";
-import PropTypes from "prop-types";
-import { useUser } from "../contexts/UserContext";
-import Header from "./header";
-
-// import Header from "./header";
-
-export default function QuizPage({
-  data,
-  learningGoals,
-  setAttempt,
-  setQuizQuestions,
-}) {
-  const user = useUser();
-  if (user) {
-    console.log("User id is: ", user.uid);
-  }
-
-  const router = useRouter();
-
-  function handleClick() {
-    router.push("/quizresults");
-  }
-
-  function submitQuiz(attemptArray, quizQuestionsArray) {
-    const attemptArrayCopy = [...attemptArray];
-    setAttempt(attemptArrayCopy);
-    setQuizQuestions(quizQuestionsArray);
-    handleClick();
-  }
+export default function learningGoalsPage() {
+  //const learningGoalsArray = ["1", "2", "3", "4", "5"]
 
   return (
-    <div className={styles.container}>
-      <Header />
+    <div>
+      <Head>
+        <div>
+          <title>Learning Goals</title>
+        </div>
+      </Head>
 
-      <main>
-        <h1 className={styles.text}>Progress Tracker</h1>
-        <Quiz
-          data={data}
-          learningGoals={learningGoals}
-          submitQuiz={submitQuiz}
-        />
-      </main>
+      <div>
+        <h1>Quiz Learnings for Quiz</h1>
+      </div>
 
-      <footer className={styles.text}>A 312 project</footer>
+      <div>
+        <fieldset>
+          <legend>Select Learning Goals</legend>
+          <LearningGoals
+          //learningGoalsArray={learningGoalsArray}
+          />
+        </fieldset>
+      </div>
     </div>
   );
 }
-
-QuizPage.propTypes = {
-  setAttempt: PropTypes.func.isRequired,
-  learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
-  //attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setQuizQuestions: PropTypes.func.isRequired,
-  data: PropTypes.any,
-};
