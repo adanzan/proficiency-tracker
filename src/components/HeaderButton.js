@@ -61,16 +61,6 @@ export default function HeaderButton() {
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </span>
-
-      {/* <span className="position-absolute top-0 start-0">
-        <Button variant="outlined" onClick={() => router.push("/")}>Home</Button>
-      </span>
-      <Button variant="contained" className="position-absolute top-0 start-50%">Log Out</Button>
-      <span className="position-absolute top-0 end-0">
-        <Button variant="outlined" onClick={() => router.push("/")}>
-          {user ? user.email : "Log in"}
-        </Button>
-      </span> */}
     </div>
   );
 }

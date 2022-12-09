@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import "../styles/globals.css";
 
+import { useRouter } from "next/router";
 import UserContext from "../contexts/UserContext.js";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeFirebase } from "../utils/firebase-utils.mjs";
@@ -15,6 +16,8 @@ function MainApp({ Component, pageProps }) {
 
   const [user, setUser] = useState();
 
+  const router = useRouter();
+
   // Sign the user in
   useEffect(() => {
     const auth = getAuth();
@@ -23,6 +26,7 @@ function MainApp({ Component, pageProps }) {
         // Log the user in
         setUser(authUser);
       } else {
+        router.push("/login");
         setUser();
       }
     });
