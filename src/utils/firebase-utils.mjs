@@ -143,7 +143,20 @@ export async function getQuestions(learningGoals){
   return questions;
 }
 
-// export async function getAnswers
+export async function getAnswers(questions){
+  const db = getFirestore();
+  const collectionSnapshot = await getDocs(collection(db, "queAnsObjs"))
+  const answers = [];
+  questions.forEach((que) => {
+    collectionSnapshot.forEach((document) => {
+      if(document.data().qID === que.qID){
+          answers.push(document.data());
+      }
+    })
+  });
+  // console.log(answers);
+  return answers;
+}
 
 
 /**

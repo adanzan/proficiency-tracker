@@ -37,8 +37,6 @@ export function Quiz({
     getData(learningGoals, setQuizQuestions);
   }, []);
 
-  const quizQuestionsArray = [];
-
   const questions = [];
 
   quizQuestions.forEach(element => {
@@ -66,7 +64,7 @@ export function Quiz({
       <Button
         variant="outline-dark"
         onClick={() => {
-          submitQuiz(attemptArray, quizQuestionsArray);
+          submitQuiz(attemptArray, quizQuestions);
         }}
       >
         Submit
