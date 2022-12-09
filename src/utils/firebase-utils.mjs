@@ -153,6 +153,22 @@ export async function getQuestions(learningGoals){
   return questions;
 }
 
+// Returns an array of learning goals
+export async function getLearningGoals() {
+  const db = getFirestore();
+  const questionSnap = await getDocs(collection(db, "queChoObjs"));
+
+  // Create set to later return array
+  const learningGoalSet = new Set();
+
+  questionSnap.forEach((document) => {
+    learningGoalSet.add(document.data().learningGoal)
+  });
+
+  // Convert set to array
+  const learningGoalArr = [...learningGoalSet];
+  return learningGoalArr;
+}
 // export async function getAnswers
 
 
