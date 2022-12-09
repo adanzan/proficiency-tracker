@@ -2,8 +2,6 @@
 import { getApp, initializeApp } from "firebase/app";
 import { initializeFirestore, connectFirestoreEmulator, getFirestore, collection, doc, addDoc, deleteDoc, getDocs, setDoc } from "firebase/firestore";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -104,6 +102,7 @@ export async function updateStudentResults(learningGoals, studentId, attemptNo, 
 
 
 }
+
 export async function addStudent(first, last, id, middleburyId, instructor) {
   const db = getFirestore();
 
@@ -133,7 +132,6 @@ export async function addProfessor(first, last, id, middleburyId, instructor) {
   }
 
   await setDoc(doc(collectionRef, id), professor);
-
 }
 
 //Takes in a list of learningGoals and returns questions that meet that criteria
