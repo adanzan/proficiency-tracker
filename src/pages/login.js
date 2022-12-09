@@ -85,7 +85,7 @@ export default function Login() {
     if (newUser) {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
-        await addUser();
+        addUser();
         router.push("/homePage");
       } catch (error) {
         if (error.message.includes("invalid-email")) {
@@ -100,7 +100,7 @@ export default function Login() {
           setErrorMessage(`${email} is already in use`);
         }
       }
-      // If user exists:
+      // If existing:
     } else {
       try {
         await signInWithEmailAndPassword(auth, email, password);
@@ -134,7 +134,7 @@ export default function Login() {
       </Head>
 
       <div>
-        <h1>Proficiency Tracker</h1>
+        <h1 onClick={() => router.push("/")}> Proficiency Tracker</h1>
         {/* If error message, display it over top */}
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         <div>
@@ -192,7 +192,7 @@ export default function Login() {
 
           <input
             type="button"
-            onClick={() => router.push("/login")}
+            onClick={() => router.push("/")}
             value={"Cancel"}
           />
         </div>
