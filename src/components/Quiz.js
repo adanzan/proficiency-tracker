@@ -15,34 +15,8 @@ import { useEffect } from "react";
 
 async function getData(learningGoals, callback) {
   const tempData = await getQuestions(learningGoals);
+  callback(tempData);
 
-  // const tempDataArray = Object.keys(tempData).map((key) => [Number(key), tempData[key]]);
-  const tempDataArray = Object.values(tempData);
-
-  console.log(tempDataArray);
-  console.log(tempData);
-
-  const filteredQuestions = tempDataArray.map((q) => {
-    //to filter which questions go in, placeholder
-    //if condition is met create a Question object and add it to questions list
-    for (let i = 0; i < learningGoals.length; i++) {
-      if (q["learningGoal"] === parseInt(learningGoals[i])) {
-        if (q) {
-          quizQuestionsArray.push(q);
-        }
-        return (
-          attemptArray.push({ id: q.qID, answer: "" }),
-          (
-            <li key={q.question}>
-              <Question question={q} selectAnswer={selectAnswer} />
-            </li>
-          )
-        );
-      }
-    }
-  });
-
-  callback(filteredQuestions);
 }
 export function Quiz({
   learningGoals,
@@ -59,54 +33,35 @@ export function Quiz({
     attemptArray.splice(index, 1, { id: qID, answer: selectedAnswer });
   };
 
-  console.log(selectAnswer);
-
   useEffect(() => {
     getData(learningGoals, setQuizQuestions);
   }, []);
 
-  // const quizQuestionsCopy = [...quizQuestions]
+  const quizQuestionsArray = [];
 
-  // const filteredQuestions = quizQuestionsCopy.map((q) => {
-  //   //to filter which questions go in, placeholder
-  //   //if condition is met create a Question object and add it to questions list
-  //   for (let i = 0; i < learningGoals.length; i++) {
-  //     console.log("hello")
-  //     if (q["learningGoal"] === parseInt(learningGoals[i])) {
-  //       if (q) {
-  //         quizQuestionsArray.push(q);
-  //       }
-  //       return (
-  //         attemptArray.push({ id: q.qID, answer: "" }),
-  //         (
-  //           <li key={q.question}>
-  //             <Question question={q} selectAnswer={selectAnswer} />
-  //           </li>
-  //         )
-  //       );
-  //     }
-  //   }
-  // });
+  const questions = [];
 
-  const filteredQuestions = quizQuestions;
-  //console.log(filteredQuestions);
+  quizQuestions.forEach(element => {
+    attemptArray.push({ id: element.qID, answer: "" });
+    questions.push((
+      <li key={element.question}>
+        <Question question={element} selectAnswer={selectAnswer} />
+      </li>
+    ))
+  });
 
   //use reduce function to only show defined questions
-
   const condition =
-    filteredQuestions === [] ? (
+    questions === [] ? (
       <p> No questions to display</p>
     ) : (
-      <ol>{filteredQuestions}</ol>
+      <ol>{questions}</ol>
     );
 
   return (
     <div className={styles.round}>
       {/* Placeholder, will need to dynamically change quiz name */}
       <h2>Quiz 1</h2>
-      <button onClick={() => console.log(testQuestions())}>
-        Print Temp Ques
-      </button>
       {condition}
       <Button
         variant="outline-dark"
