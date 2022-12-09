@@ -4,7 +4,7 @@ Quiz Page
 
 //import Head from "next/head";
 import styles from "../styles/index.module.css";
-import { Quiz } from "../components/Quiz";
+import Quiz from "../components/Quiz";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useUser } from "../contexts/UserContext";
