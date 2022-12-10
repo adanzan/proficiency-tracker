@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { useUser } from "../contexts/UserContext";
 import Header from "./header";
 import { useCurrentUser } from "../hooks/useCurrentUser";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+// import { getFirestore, doc, getDoc } from "firebase/firestore";
 // import Header from "./header";
 
 export default function QuizPage({
@@ -22,24 +22,24 @@ export default function QuizPage({
   const user = useUser();
   const userInfo = useCurrentUser();
 
-  const db = getFirestore();
+  // const db = getFirestore();
 
-  async function getDummy() {
-    const dummyInfo = await getDoc(
-      doc(db, "professors", "tHDSFdv34KRpIuvTr2k5aj9auKH3")
-    );
-    return dummyInfo.data();
-  }
+  // async function getDummy() {
+  //   const dummyInfo = await getDoc(
+  //     doc(db, "professors", "tHDSFdv34KRpIuvTr2k5aj9auKH3")
+  //   );
+  //   return dummyInfo.data();
+  // }
 
   if (user) {
     console.log("User id is: ", user.uid);
     console.log("User info is: ", userInfo);
-    let newInfo;
-    getDummy().then((result) => {
-      newInfo = result;
-    });
-    console.log(newinfo);
-    console.log("Dummy info is: ", newInfo);
+    // let newInfo;
+    // getDummy().then((result) => {
+    //   newInfo = result;
+    // });
+    // console.log(newinfo);
+    // console.log("Dummy info is: ", newInfo);
 
     // console.log("User first name is:", studentInfo.first);
   }
