@@ -8,7 +8,7 @@
 import PropTypes from "prop-types";
 
 const QuestionShape = PropTypes.shape({
-  learningGoal: PropTypes.number.isRequired,
+  learningGoal: PropTypes.string.isRequired,
   question: PropTypes.string.isRequired,
   choices: PropTypes.arrayOf(PropTypes.string).isRequired,
 });

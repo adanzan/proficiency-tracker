@@ -6,40 +6,35 @@ import PropTypes from "prop-types";
 // import Correct_Answers from "../../data/Correct_Answers.json";
 import QuestionResult from "./QuestionResult";
 import styles from "../styles/Quiz.module.css";
-import { getAnswers } from "../utils/firebase-utils.mjs";
-import { useState, useEffect } from "react";
+import {updateStudentResults} from "../utils/firebase-utils.mjs"
 
-async function getData(questions, callback){
-  const answers = await getAnswers(questions);
-  callback(answers);
-}
-
-export default function QuizResults({ attempt, quizQuestions }) {
-  const [answers, setAnswers] = useState([]);
-
-  useEffect(() => {
-    getData(quizQuestions, setAnswers);
-  }, []);
+// async function uploadData(learningGoals, studentId, "3", "10", []){
+//   await updateStudentResults(learningGoals, studentId, "3", "10", []);
+// }
+export default function QuizResults({ attempt, quizQuestions, answers }) {
+  console.log("Quiz questions", quizQuestions);
+  console.log("Answers are: ", answers);
 
   const correctAnswersCopy = [...answers];
   // Changes the array of correctAnswers so that they have the same ordering as questions
   const correctAnswers = [];
-  quizQuestions.forEach((question, index) => {
-    const answer = correctAnswersCopy.find(
-      (ans) => ans.qID === quizQuestions[index].qID
-    );
+
+  quizQuestions.forEach((question) => {
+    const answer = correctAnswersCopy.find((ans) => ans.qID === question.qID);
     correctAnswers.push(answer);
-  });
+  })
+
 
   // Evaluates the answers
   const selectedAnswerCorrect = [];
-  attempt.forEach((selectedAnswer, index) => {
+  for(let i=0; i<attempt.length; i++){
+    const selectedAnswer = attempt[i];
     selectedAnswerCorrect.push({
       qID: selectedAnswer.id,
       answer: selectedAnswer.answer,
-      correct: selectedAnswer.answer === correctAnswers[index].answer,
-    });
-  });
+      correct: selectedAnswer.answer === correctAnswers[i].answer,
+    })
+  }
 
   // Creates a questionResult object from the student answers
   const displayQuestionResults = quizQuestions.map((q, index) => {
@@ -53,6 +48,7 @@ export default function QuizResults({ attempt, quizQuestions }) {
     );
   });
 
+
   return (
     <div className={styles.round}>
       <h2>Quiz 1 Results</h2>
@@ -63,6 +59,7 @@ export default function QuizResults({ attempt, quizQuestions }) {
 }
 
 QuizResults.propTypes = {
+  answers: PropTypes.array. isRequired,
   attempt: PropTypes.arrayOf(PropTypes.object),
   quizQuestions: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
