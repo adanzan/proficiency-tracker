@@ -7,11 +7,7 @@ import "../styles/globals.css";
 import UserContext from "../contexts/UserContext.js";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeFirebase } from "../utils/firebase-utils.mjs";
-import data from "../../data/Fake_Questions.json";
-//import Fake_Questions from "../../data/Fake_Questions.json";
-
 import { getAnswers } from "../utils/firebase-utils.mjs";
-import { useEffect } from "react";
 
 async function getData(questions, setAnswers){
   console.log("questions", questions)
@@ -50,7 +46,6 @@ function MainApp({ Component, pageProps }) {
 
   const props = {
     ...pageProps,
-    data,
     learningGoals,
     attempt,
     setAttempt,

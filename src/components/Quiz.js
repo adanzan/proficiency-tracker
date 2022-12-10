@@ -13,7 +13,6 @@ import styles from "../styles/Quiz.module.css";
 import { getQuestions } from "../utils/firebase-utils.mjs";
 import { useEffect } from "react";
 
-<<<<<<< HEAD
 async function getData(learningGoals, callback) {
   const tempData = await getQuestions(learningGoals);
   callback(tempData);
@@ -25,9 +24,6 @@ export function Quiz({
   setQuizQuestions,
   submitQuiz,
 }) {
-=======
-export default function Quiz({ data, learningGoals, submitQuiz }) {
->>>>>>> main
   // Each quiz has one quiz state that gets updated when we click submit
   //const attemptArray = Array(learningGoals.length).fill({ id: q.qID, answer: "" });
   const attemptArray = [];
@@ -37,7 +33,6 @@ export default function Quiz({ data, learningGoals, submitQuiz }) {
     attemptArray.splice(index, 1, { qID: qID, answer: selectedAnswer });
   };
 
-<<<<<<< HEAD
   useEffect(() => {
     getData(learningGoals, setQuizQuestions);
   }, []);
@@ -51,27 +46,6 @@ export default function Quiz({ data, learningGoals, submitQuiz }) {
         <Question question={element} selectAnswer={selectAnswer} />
       </li>
     ))
-=======
-  const quizQuestionsArray = [];
-  const filteredQuestions = data.map((q) => {
-    //to filter which questions go in, placeholder
-    //if condition is met create a Question object and add it to questions list
-    for (let i = 0; i < learningGoals.length; i++) {
-      if (q["learningGoal"] === parseInt(learningGoals[i])) {
-        if (q) {
-          quizQuestionsArray.push(q);
-        }
-        return (
-          attemptArray.push({ qID: q.qID, answer: "" }),
-          (
-            <li key={q.question}>
-              <Question question={q} selectAnswer={selectAnswer} />
-            </li>
-          )
-        );
-      }
-    }
->>>>>>> main
   });
 
   //use reduce function to only show defined questions
