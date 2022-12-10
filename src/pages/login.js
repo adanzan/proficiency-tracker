@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { useUser } from "../contexts/UserContext";
+// import { useUser } from "../contexts/UserContext";
 
 import {
   getAuth,
@@ -26,7 +26,7 @@ export default function Login() {
   const [lastName, setLastName] = useState("");
   const [middleburyId, setMiddleburyId] = useState("");
 
-  const user = useUser();
+  // const user = useUser();
 
   const registrationInputs = (
     <div>
