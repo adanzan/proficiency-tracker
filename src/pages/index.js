@@ -25,6 +25,8 @@ export default function QuizPage({
 
   const router = useRouter();
 
+  // console.log(learningGoals);
+
   function handleClick() {
     router.push("/quizresults");
   }

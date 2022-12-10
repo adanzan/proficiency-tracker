@@ -6,8 +6,9 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 
-export default function LearningGoals({ setLearningGoals }) {
+export default function LearningGoals({ onSubmit }) {
   const [selectedGoal, selectGoal] = useState([]);
+  // const [newSubmit, onSubmit] = useState(false);
 
   console.log("Current selected goals", selectedGoal);
 
@@ -15,7 +16,7 @@ export default function LearningGoals({ setLearningGoals }) {
 
   // Grab all the learning goals
   //const learningGoalArr = getLearningGoals();
-  console.log("learningGoalArr", learningGoalArr);
+  //console.log("learningGoalArr", learningGoalArr);
 
   // const selectedGoals = [];
 
@@ -45,19 +46,29 @@ export default function LearningGoals({ setLearningGoals }) {
     );
   });
 
-  setLearningGoals(selectedGoal);
+  // const submitLg = setLearningGoals(selectedGoal);
+  // const submitLg = useEffect(() =>
+  //   setLearningGoals(selectedGoal)
+  //  );
 
   return (
     <div>
       <div>{displayLearningGoals}</div>
-
       <div>
-        <Button variant="outline-dark">Submit</Button>
+        <Button
+          variant="outline-dark"
+          disabled={selectedGoal.length === 0}
+          onClick={() => onSubmit(selectedGoal)}
+        >
+          Begin Quiz
+        </Button>
       </div>
     </div>
   );
 }
 
 LearningGoals.propTypes = {
-  setLearningGoals: PropTypes.func.isRequired,
+  //learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  //setLearningGoals: PropTypes.func.isRequired,
 };

@@ -6,7 +6,17 @@ import Head from "next/head";
 import LearningGoals from "../components/LearningGoals";
 //import Quiz from "../components/Quiz";
 
+import { useRouter } from "next/router";
+
 export default function LearningGoalsPage({ setLearningGoals }) {
+  const router = useRouter();
+
+  function onSubmit(lgArray) {
+    const lgArrayCopy = [...lgArray];
+    setLearningGoals(lgArrayCopy);
+    router.push("/");
+  }
+
   return (
     <div>
       <Head>
@@ -20,7 +30,7 @@ export default function LearningGoalsPage({ setLearningGoals }) {
       <div>
         <fieldset>
           <legend>Select Learning Goals</legend>
-          <LearningGoals setLearningGoals={setLearningGoals} />
+          <LearningGoals onSubmit={onSubmit} />
         </fieldset>
       </div>
     </div>
