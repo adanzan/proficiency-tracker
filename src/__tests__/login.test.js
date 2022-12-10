@@ -177,7 +177,7 @@ describe("Login: Log in page tests", () => {
       expect(getAuth).toHaveBeenCalled();
       expect(createUserWithEmailAndPassword).not.toHaveBeenCalled();
       expect(signInWithEmailAndPassword).toHaveBeenCalled();
-      await waitFor(() => expect(mockRouter.asPath).toBe("/homePage"));
+      await waitFor(() => expect(mockRouter.asPath).toBe("/"));
     });
 
     test("Login: When returning user, invalid-email is handled", async () => {

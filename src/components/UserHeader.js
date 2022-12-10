@@ -26,7 +26,12 @@ This component renders the header of the home page for student and professor giv
 /*/
 
 export default function UserHeader({ isStudent }) {
-  const studentPages = ["Home", "Quiz Results", "Student Progress"];
+  const studentPages = [
+    "Home",
+    "Create Quiz",
+    "Quiz Results",
+    "Student Progress",
+  ];
   const professorPages = ["Home", "Student Progress"];
   const settings = ["Logout"];
 
