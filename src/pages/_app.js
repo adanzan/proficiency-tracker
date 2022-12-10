@@ -20,7 +20,7 @@ function MainApp({ Component, pageProps }) {
   // loadData();
   const [attempt, setAttempt] = useState([]);
   const [quizQuestions, setQuizQuestions] = useState([]);
-  const learningGoals = ["1", "5"];
+  const learningGoals = ["2", "3"];
   const [answers, setAnswers] = useState([]);
 
   useEffect(() => {

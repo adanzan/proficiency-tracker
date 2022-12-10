@@ -76,41 +76,32 @@ export async function addStudent(first, last, id){
 }
 
 //Helper function to get highest score in a particular quiz
-async function previousHighScore(quizNo, studentId){
-  const db = getFirestore();
-  let prev = undefined;
-  const collectionSnapshot = await getDocs(collection(db, "students", studentId, "quizResults"));
-  collectionSnapshot.forEach((document) => {
-    if(document.id === `quiz${quizNo}`){
-      prev = document.data();
-    }
-  });
-  return (prev === undefined ? 0 : prev.bestScore);
-}
+// async function previousHighScore(quizNo, studentId){
+//   const db = getFirestore();
+//   let prev = undefined;
+//   const collectionSnapshot = await getDocs(collection(db, "students", studentId, "quizResults"));
+//   collectionSnapshot.forEach((document) => {
+//     if(document.id === `quiz${quizNo}`){
+//       prev = document.data();
+//     }
+//   });
+//   return (prev === undefined ? 0 : prev.bestScore);
+// }
 
 //Updates students results in a particular quiz and also updates bestScore in that quiz
-export async function updateStudentResults(quizNo, learningGoal,  studentId, attemptNo, score, answers){
+export async function updateStudentResults(learningGoals,  studentId, score, answers){
   const db = getFirestore();
 
   const collectionRef = collection(db, "students");
 
-  const hScore = await previousHighScore(quizNo, studentId);
-
   const quizObj = {
-    "quizId": quizNo,
-    "learningGoal": learningGoal,
-    "bestScore": score > hScore ? score : hScore
-    ,
-  }
-
-  const attempt = {
-    "attemptNo": attemptNo,
+    "learningGoals": learningGoals,
     "score": score,
     "answers": answers,
   }
 
-  await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`), quizObj);
-  await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`, "attempts", `attempt ${attempt.attemptNo}`), attempt);
+  await addDoc(collection(collectionRef, studentId, "quizResults"), quizObj);
+  // await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`, "attempts", `attempt ${attempt.attemptNo}`), attempt);
 }
 
 export async function addProfessor(first, last, id){
