@@ -8,10 +8,13 @@ import Quiz from "../components/Quiz";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useUser } from "../contexts/UserContext";
-import Header from "./header";
-import { useCurrentUser } from "../hooks/useCurrentUser";
-// import { getFirestore, doc, getDoc } from "firebase/firestore";
 // import Header from "./header";
+// import { getAuth } from "firebase/auth";
+import UserHeader from "../components/UserHeader";
+
+import Link from "next/link";
+import useCurrentStudent from "../hooks/useCurrentStudent";
+// import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default function QuizPage({
   data,
@@ -20,31 +23,17 @@ export default function QuizPage({
   setQuizQuestions,
 }) {
   const user = useUser();
-  const userInfo = useCurrentUser();
+  const router = useRouter();
 
-  // const db = getFirestore();
-
-  // async function getDummy() {
-  //   const dummyInfo = await getDoc(
-  //     doc(db, "professors", "tHDSFdv34KRpIuvTr2k5aj9auKH3")
-  //   );
-  //   return dummyInfo.data();
-  // }
+  const studentInfo = useCurrentStudent(user && user.uid);
+  console.log(studentInfo);
 
   if (user) {
+    // const studentInfo = useCurrentStudent(user.uid);
+    // console.log("Student info is: ", studentInfo);
     console.log("User id is: ", user.uid);
-    console.log("User info is: ", userInfo);
-    // let newInfo;
-    // getDummy().then((result) => {
-    //   newInfo = result;
-    // });
-    // console.log(newinfo);
-    // console.log("Dummy info is: ", newInfo);
-
-    // console.log("User first name is:", studentInfo.first);
+    // console.log("User info is: ", userInfo);
   }
-
-  const router = useRouter();
 
   function handleClick() {
     router.push("/quizresults");
@@ -57,10 +46,11 @@ export default function QuizPage({
     handleClick();
   }
 
-  return (
-    <div className={styles.container}>
-      <Header />
+  const isStudent = true; // Grab the user's identification if they are a student or instructor
 
+  return user ? (
+    <div className={styles.container}>
+      <UserHeader isStudent={isStudent} />
       <main>
         <h1 className={styles.text}>Progress Tracker</h1>
         <Quiz
@@ -71,6 +61,10 @@ export default function QuizPage({
       </main>
 
       <footer className={styles.text}>A 312 project</footer>
+    </div>
+  ) : (
+    <div className={styles.content}>
+      <Link href="/login">Log in</Link>
     </div>
   );
 }

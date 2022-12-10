@@ -20,7 +20,7 @@ export function initializeFirebase() {
   try {
     return getApp();
   } catch (e) {
-    // app has not been initialized
+    // app has not been initialized 
     const app = initializeApp(firebaseConfig);
 
     // initialize the database
@@ -152,6 +152,7 @@ export async function getQuestions(learningGoals) {
   console.log(questions);
   return questions;
 }
+
 
 // export async function getAnswers
 
