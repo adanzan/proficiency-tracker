@@ -166,8 +166,10 @@ export async function getLearningGoals() {
   });
 
   // Convert set to array
-  const learningGoalArr = [...learningGoalSet];
-  return learningGoalArr;
+  //const learningGoalArr = [...learningGoalSet];
+  // const learningGoalArr = Array.from(learningGoalSet)
+  // console.log("DATABASE", learningGoalArr, Array.isArray(learningGoalArr));
+  return learningGoalSet;
 }
 // export async function getAnswers
 

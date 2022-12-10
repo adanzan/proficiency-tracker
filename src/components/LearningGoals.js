@@ -2,21 +2,30 @@
 Learning Goals Component 
 */
 import PropTypes from "prop-types";
-// import { getLearningGoals } from "../utils/firebase-utils.mjs";
+//import { getLearningGoals } from "../utils/firebase-utils.mjs";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 
+// async function learningGoalArrDb(setLGs){
+//   const lGs = await getLearningGoals();
+//   console.log(lGs)
+//   //setLGs(lGs);
+// }
+
 export default function LearningGoals({ onSubmit }) {
   const [selectedGoal, selectGoal] = useState([]);
+  //const [LGs, setLGs] = useState([]);
   // const [newSubmit, onSubmit] = useState(false);
 
   console.log("Current selected goals", selectedGoal);
 
   const learningGoalArr = ["1", "2", "3"];
 
-  // Grab all the learning goals
-  //const learningGoalArr = getLearningGoals();
-  //console.log("learningGoalArr", learningGoalArr);
+  //const lgArray = learningGoalArrDb(setLGs);
+
+  // const lgArray = getLearningGoals();
+  // const promiselg = lgArray.then(console.log(lgArray)
+  console.log("GOALS PAGE", lgArray);
 
   // const selectedGoals = [];
 
