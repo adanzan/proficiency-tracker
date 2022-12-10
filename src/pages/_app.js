@@ -27,6 +27,7 @@ function MainApp({ Component, pageProps }) {
         setUser(authUser);
       } else {
         setUser();
+        // router.push("/login");
       }
     });
     return unsubscribe;
