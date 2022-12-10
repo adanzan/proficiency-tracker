@@ -6,13 +6,11 @@ import Head from "next/head";
 import LearningGoals from "../components/LearningGoals";
 //import Quiz from "../components/Quiz";
 
-export default function learningGoalsPage({ setLearningGoals }) {
+export default function LearningGoalsPage({ setLearningGoals }) {
   return (
     <div>
       <Head>
-        <div>
-          <title>Learning Goals</title>
-        </div>
+        <title>Learning Goals</title>
       </Head>
 
       <div>
@@ -29,7 +27,7 @@ export default function learningGoalsPage({ setLearningGoals }) {
   );
 }
 
-learningGoalsPage.propTypes = {
-  //learningGoalsArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+LearningGoalsPage.propTypes = {
+  //learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
   setLearningGoals: PropTypes.func.isRequired,
 };

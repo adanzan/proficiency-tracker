@@ -11,7 +11,7 @@ export default function LearningGoals({ setLearningGoals }) {
 
   console.log("Current selected goals", selectedGoal);
 
-  const learningGoalArr = ["hello", "hi", "kakapeepepoopoo"];
+  const learningGoalArr = ["1", "2", "3"];
 
   // Grab all the learning goals
   //const learningGoalArr = getLearningGoals();
@@ -52,12 +52,7 @@ export default function LearningGoals({ setLearningGoals }) {
       <div>{displayLearningGoals}</div>
 
       <div>
-        <Button
-          variant="outline-dark"
-          //onClick={() => {setLearningGoals()}}
-        >
-          Submit
-        </Button>
+        <Button variant="outline-dark">Submit</Button>
       </div>
     </div>
   );
