@@ -45,6 +45,7 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
     }
   }
 
+<<<<<<< HEAD
   // const user = useUser();
   //The user is temporarily hardcoded because I don't have the authentication files
   const user = {
@@ -53,6 +54,9 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
   useEffect(()=>{
     updateData(lGoals, user.id, score, selectedAnswerCorrect);
   }, []);
+=======
+  console.log(selectedAnswerCorrect);
+>>>>>>> main
 
   // Creates a questionResult object from the student answers
   const displayQuestionResults = quizQuestions.map((q, index) => {

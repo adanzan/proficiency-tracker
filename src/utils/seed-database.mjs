@@ -7,7 +7,7 @@
  import {readFileSync} from "node:fs";
  
  import {
- addProfessor,
+   addProfessor,
    addStudent,
    getQuestions,
    initializeFirebase,
@@ -23,10 +23,11 @@
  
    initializeFirebase();
    await loadData(data);
-   await addProfessor("Christoper", "Andrews", "1");
-   await addStudent("Smith", "Gakuya", "00739649");
+   await addProfessor("Christoper", "Andrews", "abcd", "0123", true);
+   await addStudent("Smith", "Gakuya", "ABCD", "00718383", false);
+   await updateStudentResults(["animals", "plants"], "00739649", "1", "50", [{"q1": "cow"}, {"q2" : "dog"}]);
+   await updateStudentResults(["animals", "plants"], "00739649", "4", "500", [{"q1": "cow"}, {"q2" : "dog"}]);
    await updateStudentResults(["animals"], "00739649", "3", "10", []);
-   await updateStudentResults(["animals"], "00739649", "4", "50", [{"q1": "cow"}, {"q2" : "dog"}]);
    await getQuestions([1]);
   
    console.log("Seeding complete");

@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { getApp, initializeApp } from "firebase/app";
 import {  initializeFirestore, connectFirestoreEmulator, getFirestore, collection, doc, addDoc, deleteDoc, getDocs , setDoc} from "firebase/firestore";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,7 +17,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export function initializeFirebase(){
-    try{
+    try {
       return getApp();
     } catch (e){
       // app has not been initialized
@@ -25,9 +26,11 @@ export function initializeFirebase(){
       // initialize the database
       const db = initializeFirestore(app, {useFetchStreams: false})
       // connect up the emulator to the database
-      if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST){
+      if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test"){
+        const auth = getAuth();
+        connectAuthEmulator(auth, "http://localhost:9099");
         console.log("Connecting to emulator");
-        connectFirestoreEmulator(db, "localhost", 8080 );
+        connectFirestoreEmulator(db, "localhost", 8080);
       }
       return app;
     }
@@ -61,7 +64,7 @@ export async function loadData(data){
   }));
 }
 
-export async function addStudent(first, last, id){
+export async function addStudent(first, last, id, middleburyId, instructor){
   const db = getFirestore();
 
   const collectionRef = collection(db, "students");
@@ -70,9 +73,11 @@ export async function addStudent(first, last, id){
     "first": first,
     "last": last,
     "id": id,
+    "middleburyId": middleburyId,
+    "instructor": instructor,
   }
 
-  await setDoc(doc(collectionRef, student.id), student);
+  await setDoc(doc(collectionRef, id), student);
 }
 
 //Helper function to get highest score in a particular quiz
@@ -102,19 +107,28 @@ export async function updateStudentResults(learningGoals,  studentId, score, ans
 
   await addDoc(collection(collectionRef, studentId, "quizResults"), quizObj);
   // await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`, "attempts", `attempt ${attempt.attemptNo}`), attempt);
+
+  // for(const lGoal of learningGoals){
+  //   const hScore = await previousHighScore(lGoal, studentId);
+  //   quizObj.bestScore = score > hScore ? score : hScore;
+  //   await setDoc(doc(collectionRef, studentId, "quizResults", lGoal), quizObj);
+  //   await setDoc(doc(collectionRef, studentId, "quizResults", lGoal, "attempts", `attempt ${attempt.attemptNo}`), attempt);
+  // }
 }
 
-export async function addProfessor(first, last, id){
+export async function addProfessor(first, last, id, middleburyId, instructor){
   const db = getFirestore();
 
   const collectionRef = collection(db, "professors");
   const professor = {
     "first": first,
     "last": last,
-    "profId": id,
+    "id": id,
+    "middleburyId": middleburyId,
+    "instructor": instructor,
   }
 
-  await addDoc(collectionRef, professor);
+  await setDoc(doc(collectionRef, id), professor);
   
 }
 
