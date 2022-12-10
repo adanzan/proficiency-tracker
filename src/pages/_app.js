@@ -29,8 +29,8 @@ function MainApp({ Component, pageProps }) {
         // Log the user in
         setUser(authUser);
       } else {
-        router.push("/login");
         setUser();
+        router.push("/login");
       }
     });
     return unsubscribe;
