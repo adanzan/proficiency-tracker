@@ -74,7 +74,7 @@ export default function Quiz({ data, learningGoals, submitQuiz }) {
       {condition}
       <Button
         variant="outline-dark"
-        disabled={!isFullyAnswered}
+        // disabled={!isFullyAnswered}
         onClick={() => {
           submitQuiz(attemptArray, quizQuestionsArray);
         }}
