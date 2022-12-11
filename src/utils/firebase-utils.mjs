@@ -20,18 +20,18 @@ export function initializeFirebase() {
   try {
     return getApp();
   } catch (e) {
-    // app has not been initialized 
+    // app has not been initialized
     const app = initializeApp(firebaseConfig);
 
     // initialize the database
     const db = initializeFirestore(app, { useFetchStreams: false })
     // connect up the emulator to the database
-    if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test") {
-      const auth = getAuth();
-      connectAuthEmulator(auth, "http://localhost:9099");
-      console.log("Connecting to emulator");
-      connectFirestoreEmulator(db, "localhost", 8080);
-    }
+    // if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test") {
+    const auth = getAuth();
+    connectAuthEmulator(auth, "http://localhost:9099");
+    console.log("Connecting to emulator");
+    connectFirestoreEmulator(db, "localhost", 8080);
+    // }
     return app;
   }
 }
@@ -153,7 +153,28 @@ export async function getQuestions(learningGoals) {
   return questions;
 }
 
+// Returns an array of learning goals
+export async function getLearningGoals() {
+  const db = getFirestore();
+  // const questionSnap = await getDocs(collection(db, "queChoObjs"));
 
+  const lgSnapshot = await getDocs(collection(db, "queChoObjs"));
+
+  // Create set to later return array
+  const learningGoalSet = new Set();
+
+  lgSnapshot.forEach((document) => {
+    // console.log(document.id, "=>", document.data());
+    learningGoalSet.add(document.data().learningGoal);
+  })
+
+
+  const learningGoalArr = [...learningGoalSet];
+  learningGoalArr.sort()
+  // learningGoalArr.forEach((goal) => console.log("Goals in array: ", goal));
+
+  return learningGoalArr;
+}
 // export async function getAnswers
 
 

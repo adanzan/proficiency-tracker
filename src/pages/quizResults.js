@@ -1,9 +1,8 @@
 /*
 Quiz Results page
-
 */
 import PropTypes from "prop-types";
-import QuizResults from "../../components/QuizResults";
+import QuizResults from "../components/QuizResults";
 
 export default function QuizResultsPage({ attempt, quizQuestions }) {
   return (

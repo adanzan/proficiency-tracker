@@ -14,9 +14,10 @@ function MainApp({ Component, pageProps }) {
   initializeFirebase();
   const [attempt, setAttempt] = useState([]);
   const [quizQuestions, setQuizQuestions] = useState([]);
-  const learningGoals = ["1", "5"];
-
+  const [learningGoals, setLearningGoals] = useState([]);
   const [user, setUser] = useState();
+
+  console.log("main", learningGoals);
 
   // Sign the user in
   useEffect(() => {
@@ -37,6 +38,7 @@ function MainApp({ Component, pageProps }) {
     ...pageProps,
     data,
     learningGoals,
+    setLearningGoals,
     attempt,
     setAttempt,
     quizQuestions,
