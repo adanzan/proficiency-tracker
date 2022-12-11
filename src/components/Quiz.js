@@ -12,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import styles from "../styles/Quiz.module.css";
 import { getQuestions } from "../utils/firebase-utils.mjs";
 import { useEffect } from "react";
+import {useUser} from "../contexts/UserContext";
 
 async function getData(learningGoals, callback) {
   const tempData = await getQuestions(learningGoals);
@@ -32,6 +33,8 @@ export function Quiz({
     const index = attemptArray.findIndex((q) => q.qID === qID);
     attemptArray.splice(index, 1, { qID: qID, answer: selectedAnswer });
   };
+
+  console.log("In quiz")
 
   useEffect(() => {
     getData(learningGoals, setQuizQuestions);

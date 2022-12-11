@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 import "../styles/globals.css";
-
+import { addProfessor, addStudent } from "../utils/firebase-utils.mjs";
 import UserContext from "../contexts/UserContext.js";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeFirebase } from "../utils/firebase-utils.mjs";
@@ -21,8 +21,15 @@ function MainApp({ Component, pageProps }) {
   // loadData();
   const [attempt, setAttempt] = useState([]);
   const [quizQuestions, setQuizQuestions] = useState([]);
-  const learningGoals = ["2", "3"];
+  
   const [answers, setAnswers] = useState([]);
+  const [newUser, setNewUser] = useState(false);
+  const [instructor, setInstructor] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [middleburyId, setMiddleburyId] = useState("");
+
+  const learningGoals = ["2", "3"];
 
   useEffect(() => {
     getData(quizQuestions, setAnswers);
@@ -44,6 +51,30 @@ function MainApp({ Component, pageProps }) {
     return unsubscribe;
   }, []);
 
+  // Adds the user to the corresponding database, saves whether they are an instructor in the db
+  const addUser = async () => {
+    if (instructor) {
+      await addProfessor(
+        firstName,
+        lastName,
+        user.uid,
+        middleburyId,
+        instructor
+      );
+    } else {
+      console.log("Main App: User id", user)
+      await addStudent(firstName, lastName, user.uid, middleburyId, instructor);
+    }
+  };
+
+  useEffect(()=>{
+    if(newUser){
+      addUser();
+      setNewUser(false);
+    }
+  }, [user]);
+
+
   const props = {
     ...pageProps,
     learningGoals,
@@ -52,6 +83,11 @@ function MainApp({ Component, pageProps }) {
     quizQuestions,
     setQuizQuestions,
     answers,
+    newUser,
+    setNewUser, 
+    instructor, setInstructor, firstName, 
+    setFirstName, lastName, setLastName, 
+    middleburyId, setMiddleburyId
   };
 
   return (

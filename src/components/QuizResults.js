@@ -8,6 +8,7 @@ import QuestionResult from "./QuestionResult";
 import styles from "../styles/Quiz.module.css";
 import { updateStudentResults } from "../utils/firebase-utils.mjs";
 import { useEffect } from "react";
+import { useUser } from "../contexts/UserContext";
 
 async function updateData(lGoal, middId, score, answers){
   await updateStudentResults(lGoal, middId, score, answers);
@@ -44,19 +45,13 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
       score++;
     }
   }
+  
+  const user = useUser();
 
-<<<<<<< HEAD
-  // const user = useUser();
   //The user is temporarily hardcoded because I don't have the authentication files
-  const user = {
-    "id": "xPtIW6OdCSaFxq4YOEqwLZD9HY03"
-  }
   useEffect(()=>{
     updateData(lGoals, user.id, score, selectedAnswerCorrect);
   }, []);
-=======
-  console.log(selectedAnswerCorrect);
->>>>>>> main
 
   // Creates a questionResult object from the student answers
   const displayQuestionResults = quizQuestions.map((q, index) => {

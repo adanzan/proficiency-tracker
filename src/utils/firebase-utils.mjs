@@ -26,12 +26,12 @@ export function initializeFirebase(){
       // initialize the database
       const db = initializeFirestore(app, {useFetchStreams: false})
       // connect up the emulator to the database
-      if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test"){
+      // if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test"){
         const auth = getAuth();
         connectAuthEmulator(auth, "http://localhost:9099");
         console.log("Connecting to emulator");
         connectFirestoreEmulator(db, "localhost", 8080);
-      }
+      // }
       return app;
     }
   }
