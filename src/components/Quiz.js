@@ -17,7 +17,7 @@ async function getData(learningGoals, callback) {
   const tempData = await getQuestions(learningGoals);
   callback(tempData);
 }
-export function Quiz({
+export default function Quiz({
   learningGoals,
   quizQuestions,
   setQuizQuestions,

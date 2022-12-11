@@ -10,7 +10,7 @@ import { updateStudentResults } from "../utils/firebase-utils.mjs";
 import { useEffect } from "react";
 import { useUser } from "../contexts/UserContext";
 
-async function updateData(lGoal, middId, score, answers){
+async function updateData(lGoal, middId, score, answers) {
   await updateStudentResults(lGoal, middId, score, answers);
 }
 export default function QuizResults({ attempt, quizQuestions, answers }) {
@@ -25,31 +25,30 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
   quizQuestions.forEach((question) => {
     const answer = correctAnswersCopy.find((ans) => ans.qID === question.qID);
     correctAnswers.push(answer);
-    if(!lGoals.includes(question.learningGoal)){
+    if (!lGoals.includes(question.learningGoal)) {
       lGoals.push(question.learningGoal);
     }
-  })
-
+  });
 
   // Evaluates the answers
   let score = 0;
   const selectedAnswerCorrect = [];
-  for(let i=0; i<attempt.length; i++){
+  for (let i = 0; i < attempt.length; i++) {
     const selectedAnswer = attempt[i];
     selectedAnswerCorrect.push({
       qID: selectedAnswer.id,
       answer: selectedAnswer.answer,
       correct: selectedAnswer.answer === correctAnswers[i].answer,
-    })
-    if(selectedAnswer.answer === correctAnswers[i].answer){
+    });
+    if (selectedAnswer.answer === correctAnswers[i].answer) {
       score++;
     }
   }
-  
+
   const user = useUser();
 
   //The user is temporarily hardcoded because I don't have the authentication files
-  useEffect(()=>{
+  useEffect(() => {
     updateData(lGoals, user.id, score, selectedAnswerCorrect);
   }, []);
 
@@ -65,7 +64,6 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
     );
   });
 
-
   return (
     <div className={styles.round}>
       <h2>Quiz 1 Results</h2>
@@ -76,7 +74,7 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
 }
 
 QuizResults.propTypes = {
-  answers: PropTypes.array. isRequired,
+  answers: PropTypes.array.isRequired,
   attempt: PropTypes.arrayOf(PropTypes.object),
   quizQuestions: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

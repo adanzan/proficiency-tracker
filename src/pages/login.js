@@ -3,7 +3,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
-
+import PropTypes from "prop-types";
 // import { useUser } from "../contexts/UserContext";
 
 import {
@@ -12,10 +12,18 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
-export default function Login({newUser, setNewUser, instructor, setInstructor, 
-                          firstName, setFirstName, lastName, setLastName, 
-                          middleburyId, setMiddleburyId} ) {
-
+export default function Login({
+  newUser,
+  setNewUser,
+  instructor,
+  setInstructor,
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  middleburyId,
+  setMiddleburyId,
+}) {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
@@ -64,10 +72,9 @@ export default function Login({newUser, setNewUser, instructor, setInstructor,
       try {
         await createUserWithEmailAndPassword(auth, email, password);
         // addUser();
-        if(instructor){
+        if (instructor) {
           router.push("/professor");
-        }
-        else{
+        } else {
           router.push("/");
         }
       } catch (error) {
@@ -87,10 +94,9 @@ export default function Login({newUser, setNewUser, instructor, setInstructor,
     } else {
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        if(instructor){
+        if (instructor) {
           router.push("/professor");
-        }
-        else{
+        } else {
           router.push("/");
         }
       } catch (error) {
@@ -188,3 +194,16 @@ export default function Login({newUser, setNewUser, instructor, setInstructor,
     </div>
   );
 }
+
+Login.propTypes = {
+  newUser: PropTypes.bool.isRequired,
+  setNewUser: PropTypes.func.isRequired,
+  instructor: PropTypes.bool.isRequired,
+  setInstructor: PropTypes.func.isRequired,
+  firstName: PropTypes.string.isRequired,
+  setFirstName: PropTypes.func.isRequired,
+  lastName: PropTypes.string.isRequired,
+  setLastName: PropTypes.func.isRequired,
+  middleburyId: PropTypes.string.isRequired,
+  setMiddleburyId: PropTypes.func.isRequired,
+};

@@ -16,26 +16,26 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export function initializeFirebase(){
-    try {
-      return getApp();
-    } catch (e){
-      // app has not been initialized
-      const app = initializeApp(firebaseConfig);
-  
-      // initialize the database
-      const db = initializeFirestore(app, {useFetchStreams: false})
-      // connect up the emulator to the database
-      // if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test"){
-        const auth = getAuth();
-        connectAuthEmulator(auth, "http://localhost:9099");
-        console.log("Connecting to emulator");
-        connectFirestoreEmulator(db, "localhost", 8080);
-      // }
-      return app;
-    }
+export function initializeFirebase() {
+  try {
+    return getApp();
+  } catch (e) {
+    // app has not been initialized
+    const app = initializeApp(firebaseConfig);
+
+    // initialize the database
+    const db = initializeFirestore(app, { useFetchStreams: false })
+    // connect up the emulator to the database
+    // if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test"){
+    const auth = getAuth();
+    connectAuthEmulator(auth, "http://localhost:9099");
+    console.log("Connecting to emulator");
+    connectFirestoreEmulator(db, "localhost", 8080);
+    // }
     return app;
   }
+  return app;
+}
 
 //Function that seeds questions into databases
 export async function loadData(data) {
@@ -95,7 +95,7 @@ export async function addStudent(first, last, id, middleburyId, instructor) {
 // }
 
 //Updates students results in a particular quiz and also updates bestScore in that quiz
-export async function updateStudentResults(learningGoals,  studentId, score, answers){
+export async function updateStudentResults(learningGoals, studentId, score, answers) {
   const db = getFirestore();
 
   const collectionRef = collection(db, "students");
@@ -149,14 +149,14 @@ export async function getQuestions(learningGoals) {
   return questions;
 }
 
-export async function getAnswers(questions){
+export async function getAnswers(questions) {
   const db = getFirestore();
   const collectionSnapshot = await getDocs(collection(db, "queAnsObjs"))
   const answers = [];
   questions.forEach((que) => {
     collectionSnapshot.forEach((document) => {
-      if(document.data().qID === que.qID){
-          answers.push(document.data());
+      if (document.data().qID === que.qID) {
+        answers.push(document.data());
       }
     })
   });
