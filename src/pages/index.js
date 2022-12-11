@@ -37,7 +37,7 @@ export default function QuizPage({
   }
 
   function handleClick() {
-    router.push("/quizresults");
+    router.push("/quizResults");
   }
 
   function submitQuiz(attemptArray, quizQuestionsArray) {
@@ -75,6 +75,5 @@ QuizPage.propTypes = {
   quizQuestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   setQuizQuestions: PropTypes.func.isRequired,
   //attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
-  data: PropTypes.any,
   instructor: PropTypes.bool.isRequired,
 };

@@ -42,6 +42,8 @@ function MainApp({ Component, pageProps }) {
 
   const [user, setUser] = useState();
 
+  console.log("main", learningGoals);
+
   // Sign the user in
   useEffect(() => {
     const auth = getAuth();
@@ -83,6 +85,7 @@ function MainApp({ Component, pageProps }) {
   const props = {
     ...pageProps,
     learningGoals,
+    setLearningGoals,
     attempt,
     setAttempt,
     quizQuestions,

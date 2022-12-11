@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import QuestionShape from "./QuestionShape";
 import styles from "../styles/Question.module.css";
 import { useState } from "react";
+
 export default function Question({ question, selectAnswer }) {
   const [activeIndex, setActiveIndex] = useState(null);
 

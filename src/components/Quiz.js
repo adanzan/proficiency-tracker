@@ -29,7 +29,21 @@ export default function Quiz({
 
   const selectAnswer = (qID, selectedAnswer) => {
     const index = attemptArray.findIndex((q) => q.qID === qID);
+
     attemptArray.splice(index, 1, { qID: qID, answer: selectedAnswer });
+
+    // Validate that quiz has been fully answered
+    const validation = attemptArray.every((attempt) =>
+      Object.values(attempt).every((question) => question)
+    );
+    console.log("Quiz validated: ", validation);
+    console.log("Attempted array: ", attemptArray);
+
+    // Commented out setting state for validation, since it's not properly displaying wrong and correct answers
+    // if (validation) {
+    //   console.log("Quiz validation is true");
+    //   setIsFullyAnswered(validation);
+    // }
   };
 
   console.log("In quiz");
@@ -55,11 +69,12 @@ export default function Quiz({
 
   return (
     <div className={styles.round}>
-      {/* Placeholder, will need to dynamically change quiz name */}
+      Placeholder, will need to dynamically change quiz name
       <h2>Quiz 1</h2>
       {condition}
       <Button
         variant="outline-dark"
+        // disabled={!isFullyAnswered}
         onClick={() => {
           submitQuiz(attemptArray, quizQuestions);
         }}
@@ -75,5 +90,4 @@ Quiz.propTypes = {
   quizQuestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   setQuizQuestions: PropTypes.func.isRequired,
   submitQuiz: PropTypes.func.isRequired,
-  data: PropTypes.any,
 };

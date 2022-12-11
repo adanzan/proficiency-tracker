@@ -13,6 +13,7 @@ import { useUser } from "../contexts/UserContext";
 async function updateData(lGoal, middId, score, answers) {
   await updateStudentResults(lGoal, middId, score, answers);
 }
+
 export default function QuizResults({ attempt, quizQuestions, answers }) {
   console.log("Quiz questions", quizQuestions);
   console.log("Answers are: ", answers);
