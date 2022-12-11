@@ -16,7 +16,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-<<<<<<< HEAD
 export function initializeFirebase(){
     try {
       return getApp();
@@ -34,27 +33,9 @@ export function initializeFirebase(){
         connectFirestoreEmulator(db, "localhost", 8080);
       // }
       return app;
-=======
-export function initializeFirebase() {
-  try {
-    return getApp();
-  } catch (e) {
-    // app has not been initialized 
-    const app = initializeApp(firebaseConfig);
-
-    // initialize the database
-    const db = initializeFirestore(app, { useFetchStreams: false })
-    // connect up the emulator to the database
-    if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test") {
-      const auth = getAuth();
-      connectAuthEmulator(auth, "http://localhost:9099");
-      console.log("Connecting to emulator");
-      connectFirestoreEmulator(db, "localhost", 8080);
->>>>>>> main
     }
     return app;
   }
-}
 
 //Function that seeds questions into databases
 export async function loadData(data) {
@@ -101,7 +82,6 @@ export async function addStudent(first, last, id, middleburyId, instructor) {
 }
 
 //Helper function to get highest score in a particular quiz
-<<<<<<< HEAD
 // async function previousHighScore(quizNo, studentId){
 //   const db = getFirestore();
 //   let prev = undefined;
@@ -116,23 +96,6 @@ export async function addStudent(first, last, id, middleburyId, instructor) {
 
 //Updates students results in a particular quiz and also updates bestScore in that quiz
 export async function updateStudentResults(learningGoals,  studentId, score, answers){
-=======
-async function previousHighScore(lGoal, studentId) {
-  const db = getFirestore();
-  let prev = undefined;
-  const collectionSnapshot = await getDocs(collection(db, "students", studentId, "quizResults"));
-  collectionSnapshot.forEach((document) => {
-    if (document.id === lGoal) {
-      prev = document.data();
-    }
-  });
-  return (prev === undefined ? 0 : prev.bestScore);
-}
-
-//Updates students results in a particular quiz and also updates bestScore in that quiz
-//A quiz is a collection of questions that correspond to the given Learning Goals
-export async function updateStudentResults(learningGoals, studentId, attemptNo, score, answers) {
->>>>>>> main
   const db = getFirestore();
 
   const collectionRef = collection(db, "students");
@@ -143,18 +106,8 @@ export async function updateStudentResults(learningGoals, studentId, attemptNo, 
     "answers": answers,
   }
 
-<<<<<<< HEAD
   await addDoc(collection(collectionRef, studentId, "quizResults"), quizObj);
   // await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`, "attempts", `attempt ${attempt.attemptNo}`), attempt);
-=======
-  for (const lGoal of learningGoals) {
-    const hScore = await previousHighScore(lGoal, studentId);
-    quizObj.bestScore = score > hScore ? score : hScore;
-    await setDoc(doc(collectionRef, studentId, "quizResults", lGoal), quizObj);
-    await setDoc(doc(collectionRef, studentId, "quizResults", lGoal, "attempts", `attempt ${attempt.attemptNo}`), attempt);
-  }
-
->>>>>>> main
 
   // for(const lGoal of learningGoals){
   //   const hScore = await previousHighScore(lGoal, studentId);
@@ -196,7 +149,6 @@ export async function getQuestions(learningGoals) {
   return questions;
 }
 
-<<<<<<< HEAD
 export async function getAnswers(questions){
   const db = getFirestore();
   const collectionSnapshot = await getDocs(collection(db, "queAnsObjs"))
@@ -211,10 +163,6 @@ export async function getAnswers(questions){
   // console.log(answers);
   return answers;
 }
-=======
-
-// export async function getAnswers
->>>>>>> main
 
 
 /**

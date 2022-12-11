@@ -12,12 +12,10 @@ import Button from "react-bootstrap/Button";
 import styles from "../styles/Quiz.module.css";
 import { getQuestions } from "../utils/firebase-utils.mjs";
 import { useEffect } from "react";
-import {useUser} from "../contexts/UserContext";
 
 async function getData(learningGoals, callback) {
   const tempData = await getQuestions(learningGoals);
   callback(tempData);
-
 }
 export function Quiz({
   learningGoals,
@@ -34,7 +32,7 @@ export function Quiz({
     attemptArray.splice(index, 1, { qID: qID, answer: selectedAnswer });
   };
 
-  console.log("In quiz")
+  console.log("In quiz");
 
   useEffect(() => {
     getData(learningGoals, setQuizQuestions);
@@ -42,22 +40,18 @@ export function Quiz({
 
   const questions = [];
 
-  quizQuestions.forEach(element => {
+  quizQuestions.forEach((element) => {
     attemptArray.push({ id: element.qID, answer: "" });
-    questions.push((
+    questions.push(
       <li key={element.question}>
         <Question question={element} selectAnswer={selectAnswer} />
       </li>
-    ))
+    );
   });
 
   //use reduce function to only show defined questions
   const condition =
-    questions === [] ? (
-      <p> No questions to display</p>
-    ) : (
-      <ol>{questions}</ol>
-    );
+    questions === [] ? <p> No questions to display</p> : <ol>{questions}</ol>;
 
   return (
     <div className={styles.round}>
