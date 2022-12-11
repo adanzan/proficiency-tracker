@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { useUser } from "../contexts/UserContext";
+// import { useUser } from "../contexts/UserContext";
 
 import {
   getAuth,
@@ -26,7 +26,7 @@ export default function Login() {
   const [lastName, setLastName] = useState("");
   const [middleburyId, setMiddleburyId] = useState("");
 
-  const user = useUser();
+  // const user = useUser();
 
   const registrationInputs = (
     <div>
@@ -86,7 +86,7 @@ export default function Login() {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
         addUser();
-        router.push("/");
+        router.push("/homePage");
       } catch (error) {
         if (error.message.includes("invalid-email")) {
           setErrorMessage(
@@ -134,7 +134,7 @@ export default function Login() {
       </Head>
 
       <div>
-        <h1 onClick={() => router.push("/")}> Proficiency Tracker</h1>
+        <h1> Proficiency Tracker</h1>
         {/* If error message, display it over top */}
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         <div>

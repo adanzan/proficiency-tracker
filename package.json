@@ -24,11 +24,13 @@
     "test": "jest",
     "lint": "eslint src",
     "prepare": "husky install",
-    "seed": "NEXT_PUBLIC_EMULATE=true node src/utils/seed-database.mjs data/seed.json"
+    "seed": "NEXT_PUBLIC_EMULATE=true node src/utils/seed-database.mjs data/seed.json",
+    "emulators:stop": "lsof -t -i:5000 -i:5001 -i:5002 -i:8080 -i:9000 -i:9099 -i:9199 -i:9090 | xargs kill -9"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
     "bootstrap": "^5.2.3",
     "firebase": "^9.14.0",
