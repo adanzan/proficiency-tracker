@@ -28,7 +28,7 @@ export default function QuizPage({
   // console.log(learningGoals);
 
   function handleClick() {
-    router.push("/quizresults");
+    router.push("/quizResults");
   }
 
   function submitQuiz(attemptArray, quizQuestionsArray) {
@@ -58,7 +58,7 @@ export default function QuizPage({
 
 QuizPage.propTypes = {
   setAttempt: PropTypes.func.isRequired,
-  learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  learningGoals: PropTypes.arrayOf(PropTypes.number).isRequired,
   //attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
   setQuizQuestions: PropTypes.func.isRequired,
   data: PropTypes.any,
