@@ -122,7 +122,7 @@ export default function Login({newUser, setNewUser, instructor, setInstructor,
       </Head>
 
       <div>
-        <h1 onClick={() => router.push("/")}> Proficiency Tracker</h1>
+        <h1> Proficiency Tracker</h1>
         {/* If error message, display it over top */}
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         <div>
