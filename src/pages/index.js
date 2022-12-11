@@ -4,7 +4,7 @@ Quiz Page
 
 //import Head from "next/head";
 import styles from "../styles/index.module.css";
-import {Quiz} from "../components/Quiz";
+import Quiz from "../components/Quiz";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useUser } from "../contexts/UserContext";
@@ -21,6 +21,7 @@ export default function QuizPage({
   setAttempt,
   quizQuestions,
   setQuizQuestions,
+  instructor,
 }) {
   const user = useUser();
   const router = useRouter();
@@ -46,11 +47,9 @@ export default function QuizPage({
     handleClick();
   }
 
-  const isStudent = true; // Grab the user's identification if they are a student or instructor
-
   return user ? (
     <div className={styles.container}>
-      <UserHeader isStudent={isStudent} />
+      <UserHeader isStudent={instructor} />
       <main>
         <h1 className={styles.text}>Progress Tracker</h1>
         <Quiz
@@ -77,4 +76,5 @@ QuizPage.propTypes = {
   setQuizQuestions: PropTypes.func.isRequired,
   //attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
   data: PropTypes.any,
+  instructor: PropTypes.bool.isRequired,
 };

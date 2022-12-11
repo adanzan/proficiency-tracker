@@ -1,6 +1,7 @@
 import { useUser } from "../contexts/UserContext";
 import Paper from "@mui/material/Paper";
-export default function HomePage() {
+
+export default function StudentHome() {
   const user = useUser();
 
   if (user) {

@@ -73,7 +73,7 @@ export default function Login({
         await createUserWithEmailAndPassword(auth, email, password);
         // addUser();
         if (instructor) {
-          router.push("/professor");
+          router.push("/");
         } else {
           router.push("/");
         }

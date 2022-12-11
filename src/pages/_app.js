@@ -1,27 +1,25 @@
 /* eslint-disable  react/prop-types */
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+// import { useEffect } from "react";
 
-import "../styles/globals.css";
-import { addProfessor, addStudent } from "../utils/firebase-utils.mjs";
+// import "../styles/globals.css";
+import {
+  addProfessor,
+  addStudent,
+  getAnswers,
+  initializeFirebase,
+} from "../utils/firebase-utils.mjs";
 import UserContext from "../contexts/UserContext.js";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { initializeFirebase } from "../utils/firebase-utils.mjs";
-import { getAnswers } from "../utils/firebase-utils.mjs";
-
-async function getData(questions, setAnswers){
-  console.log("questions", questions)
-  const answers = await getAnswers(questions);
-  setAnswers(answers);
-  console.log("Answers in getData",answers);
-}
+// import { initializeFirebase } from "../utils/firebase-utils.mjs";
+// import { getAnswers } from "../utils/firebase-utils.mjs";
 
 function MainApp({ Component, pageProps }) {
   initializeFirebase();
   // loadData();
   const [attempt, setAttempt] = useState([]);
   const [quizQuestions, setQuizQuestions] = useState([]);
-  
+
   const [answers, setAnswers] = useState([]);
   const [newUser, setNewUser] = useState(false);
   const [instructor, setInstructor] = useState(false);
@@ -30,6 +28,13 @@ function MainApp({ Component, pageProps }) {
   const [middleburyId, setMiddleburyId] = useState("");
 
   const learningGoals = ["2", "3"];
+
+  async function getData(questions, newSetAnswers) {
+    console.log("questions", questions);
+    const newAnswer = await getAnswers(questions);
+    newSetAnswers(newAnswer);
+    console.log("Answers in getData", newAnswer);
+  }
 
   useEffect(() => {
     getData(quizQuestions, setAnswers);
@@ -63,18 +68,17 @@ function MainApp({ Component, pageProps }) {
         instructor
       );
     } else {
-      console.log("Main App: User id", user)
+      console.log("Main App: User id", user);
       await addStudent(firstName, lastName, user.uid, middleburyId, instructor);
     }
   };
 
-  useEffect(()=>{
-    if(newUser){
+  useEffect(() => {
+    if (newUser) {
       addUser();
       setNewUser(false);
     }
   }, [user]);
-
 
   const props = {
     ...pageProps,
@@ -85,10 +89,15 @@ function MainApp({ Component, pageProps }) {
     setQuizQuestions,
     answers,
     newUser,
-    setNewUser, 
-    instructor, setInstructor, firstName, 
-    setFirstName, lastName, setLastName, 
-    middleburyId, setMiddleburyId
+    setNewUser,
+    instructor,
+    setInstructor,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    middleburyId,
+    setMiddleburyId,
   };
 
   return (
