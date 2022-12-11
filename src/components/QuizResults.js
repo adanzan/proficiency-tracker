@@ -6,17 +6,17 @@ import PropTypes from "prop-types";
 // import Correct_Answers from "../../data/Correct_Answers.json";
 import QuestionResult from "./QuestionResult";
 import styles from "../styles/Quiz.module.css";
-import { updateStudentResults } from "../utils/firebase-utils.mjs";
-import { useEffect } from "react";
-import { useUser } from "../contexts/UserContext";
+//import { updateStudentResults } from "../utils/firebase-utils.mjs";
+//import { useEffect } from "react";
+//import { useUser } from "../contexts/UserContext";
 
-async function updateData(lGoal, middId, score, answers) {
-  await updateStudentResults(lGoal, middId, score, answers);
-}
+// async function updateData(lGoal, middId, score, answers) {
+//   await updateStudentResults(lGoal, middId, score, answers);
+// }
 
 export default function QuizResults({ attempt, quizQuestions, answers }) {
-  console.log("Quiz questions", quizQuestions);
-  console.log("Answers are: ", answers);
+  // console.log("Quiz questions", quizQuestions);
+  // console.log("Answers are: ", answers);
 
   const correctAnswersCopy = [...answers];
   // Changes the array of correctAnswers so that they have the same ordering as questions
@@ -32,7 +32,7 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
   });
 
   // Evaluates the answers
-  let score = 0;
+  // let score = 0;
   const selectedAnswerCorrect = [];
   for (let i = 0; i < answers.length; i++) {
     const selectedAnswer = attempt[i];
@@ -41,17 +41,17 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
       answer: selectedAnswer.answer,
       correct: selectedAnswer.answer === correctAnswers[i].answer,
     });
-    if (selectedAnswer.answer === correctAnswers[i].answer) {
-      score++;
-    }
+    // if (selectedAnswer.answer === correctAnswers[i].answer) {
+    //   score++;
+    // }
   }
 
-  const user = useUser();
+  //const user = useUser();
 
   //The user is temporarily hardcoded because I don't have the authentication files
-  useEffect(() => {
-    updateData(lGoals, user.id, score, selectedAnswerCorrect);
-  }, []);
+  // useEffect(() => {
+  //   updateData(lGoals, user.id, score, selectedAnswerCorrect);
+  // }, []);
 
   // Creates a questionResult object from the student answers
   const displayQuestionResults = quizQuestions.map((q, index) => {

@@ -66,6 +66,8 @@ export default function Quiz({
     );
   });
 
+  console.log("QUIZ QUESTIONS", quizQuestions);
+
   //use reduce function to only show defined questions
   const condition =
     questions === [] ? <p> No questions to display</p> : <ol>{questions}</ol>;
