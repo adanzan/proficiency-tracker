@@ -26,8 +26,9 @@ function MainApp({ Component, pageProps }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [middleburyId, setMiddleburyId] = useState("");
+  const [learningGoals, setLearningGoals] = useState([]);
 
-  const learningGoals = ["2", "3"];
+  //const learningGoals = ["2", "3"];
 
   async function getData(questions, newSetAnswers) {
     console.log("questions", questions);
