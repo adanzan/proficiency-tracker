@@ -26,6 +26,9 @@ export default function Quiz({
   // Each quiz has one quiz state that gets updated when we click submit
   //const attemptArray = Array(learningGoals.length).fill({ id: q.qID, answer: "" });
   const attemptArray = [];
+  quizQuestions.forEach((element) => {
+    attemptArray.push({ id: element.qID, answer: "" });
+  });
 
   const selectAnswer = (qID, selectedAnswer) => {
     const index = attemptArray.findIndex((q) => q.qID === qID);
@@ -33,10 +36,10 @@ export default function Quiz({
     attemptArray.splice(index, 1, { qID: qID, answer: selectedAnswer });
 
     // Validate that quiz has been fully answered
-    const validation = attemptArray.every((attempt) =>
-      Object.values(attempt).every((question) => question)
-    );
-    console.log("Quiz validated: ", validation);
+    // const validation = attemptArray.every((attempt) =>
+    //   Object.values(attempt).every((question) => question)
+    // );
+    // console.log("Quiz validated: ", validation);
     console.log("Attempted array: ", attemptArray);
 
     // Commented out setting state for validation, since it's not properly displaying wrong and correct answers
@@ -46,7 +49,7 @@ export default function Quiz({
     // }
   };
 
-  console.log("In quiz");
+  // console.log("In quiz");
 
   useEffect(() => {
     getData(learningGoals, setQuizQuestions);
@@ -55,7 +58,7 @@ export default function Quiz({
   const questions = [];
 
   quizQuestions.forEach((element) => {
-    attemptArray.push({ id: element.qID, answer: "" });
+    //attemptArray.push({ id: element.qID, answer: "" });
     questions.push(
       <li key={element.question}>
         <Question question={element} selectAnswer={selectAnswer} />

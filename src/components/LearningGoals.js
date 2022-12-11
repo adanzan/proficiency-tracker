@@ -6,17 +6,9 @@ import { getLearningGoals } from "../utils/firebase-utils.mjs";
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 
-// async function learningGoalArrDb(setLGs){
-//   const lGs = await getLearningGoals();
-//   console.log(lGs)
-//   //setLGs(lGs);
-// }
-
 export default function LearningGoals({ onSubmit }) {
   const [selectedGoal, selectGoal] = useState([]);
   const [learningGoalArr, setLearningGoalArr] = useState([]);
-
-  // const lgArr = ["1", "2", "3", "4"]
 
   useEffect(() => {
     async function fetchLearningGoals() {

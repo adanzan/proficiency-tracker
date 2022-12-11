@@ -34,7 +34,7 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
   // Evaluates the answers
   let score = 0;
   const selectedAnswerCorrect = [];
-  for (let i = 0; i < attempt.length; i++) {
+  for (let i = 0; i < answers.length; i++) {
     const selectedAnswer = attempt[i];
     selectedAnswerCorrect.push({
       qID: selectedAnswer.id,
