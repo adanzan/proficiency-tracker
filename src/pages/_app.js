@@ -1,20 +1,46 @@
 /* eslint-disable  react/prop-types */
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+// import { useEffect } from "react";
 
-import "../styles/globals.css";
-
+// import "../styles/globals.css";
+import {
+  addProfessor,
+  addStudent,
+  getAnswers,
+  initializeFirebase,
+} from "../utils/firebase-utils.mjs";
 import UserContext from "../contexts/UserContext.js";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { initializeFirebase } from "../utils/firebase-utils.mjs";
-import data from "../../data/Fake_Questions.json";
-//import Fake_Questions from "../../data/Fake_Questions.json";
+// import { initializeFirebase } from "../utils/firebase-utils.mjs";
+// import { getAnswers } from "../utils/firebase-utils.mjs";
 
 function MainApp({ Component, pageProps }) {
   initializeFirebase();
+  // loadData();
   const [attempt, setAttempt] = useState([]);
   const [quizQuestions, setQuizQuestions] = useState([]);
+
+  const [answers, setAnswers] = useState([]);
+  const [newUser, setNewUser] = useState(false);
+  const [instructor, setInstructor] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [middleburyId, setMiddleburyId] = useState("");
   const [learningGoals, setLearningGoals] = useState([]);
+
+  //const learningGoals = ["2", "3"];
+
+  async function getData(questions, newSetAnswers) {
+    console.log("questions", questions);
+    const newAnswer = await getAnswers(questions);
+    newSetAnswers(newAnswer);
+    console.log("Answers in getData", newAnswer);
+  }
+
+  useEffect(() => {
+    getData(quizQuestions, setAnswers);
+  }, [quizQuestions]);
+
   const [user, setUser] = useState();
 
   console.log("main", learningGoals);
@@ -34,15 +60,48 @@ function MainApp({ Component, pageProps }) {
     return unsubscribe;
   }, []);
 
+  // Adds the user to the corresponding database, saves whether they are an instructor in the db
+  const addUser = async () => {
+    if (instructor) {
+      await addProfessor(
+        firstName,
+        lastName,
+        user.uid,
+        middleburyId,
+        instructor
+      );
+    } else {
+      console.log("Main App: User id", user);
+      await addStudent(firstName, lastName, user.uid, middleburyId, instructor);
+    }
+  };
+
+  useEffect(() => {
+    if (newUser) {
+      addUser();
+      setNewUser(false);
+    }
+  }, [user]);
+
   const props = {
     ...pageProps,
-    data,
     learningGoals,
     setLearningGoals,
     attempt,
     setAttempt,
     quizQuestions,
     setQuizQuestions,
+    answers,
+    newUser,
+    setNewUser,
+    instructor,
+    setInstructor,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    middleburyId,
+    setMiddleburyId,
   };
 
   return (

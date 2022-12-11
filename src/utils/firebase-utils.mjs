@@ -26,12 +26,12 @@ export function initializeFirebase() {
     // initialize the database
     const db = initializeFirestore(app, { useFetchStreams: false })
     // connect up the emulator to the database
-    // if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test") {
+    if (process.env.NEXT_PUBLIC_EMULATE || process.env.FIRESTORE_EMULATOR_HOST || process.env.NODE_ENV === "test") {
     const auth = getAuth();
     connectAuthEmulator(auth, "http://localhost:9099");
     console.log("Connecting to emulator");
     connectFirestoreEmulator(db, "localhost", 8080);
-    // }
+    }
     return app;
   }
 }
@@ -81,44 +81,39 @@ export async function addStudent(first, last, id, middleburyId, instructor) {
 }
 
 //Helper function to get highest score in a particular quiz
-async function previousHighScore(lGoal, studentId) {
-  const db = getFirestore();
-  let prev = undefined;
-  const collectionSnapshot = await getDocs(collection(db, "students", studentId, "quizResults"));
-  collectionSnapshot.forEach((document) => {
-    if (document.id === lGoal) {
-      prev = document.data();
-    }
-  });
-  return (prev === undefined ? 0 : prev.bestScore);
-}
+// async function previousHighScore(quizNo, studentId){
+//   const db = getFirestore();
+//   let prev = undefined;
+//   const collectionSnapshot = await getDocs(collection(db, "students", studentId, "quizResults"));
+//   collectionSnapshot.forEach((document) => {
+//     if(document.id === `quiz${quizNo}`){
+//       prev = document.data();
+//     }
+//   });
+//   return (prev === undefined ? 0 : prev.bestScore);
+// }
 
 //Updates students results in a particular quiz and also updates bestScore in that quiz
-//A quiz is a collection of questions that correspond to the given Learning Goals
-export async function updateStudentResults(learningGoals, studentId, attemptNo, score, answers) {
+export async function updateStudentResults(learningGoals, studentId, score, answers) {
   const db = getFirestore();
 
   const collectionRef = collection(db, "students");
 
-
   const quizObj = {
     "learningGoals": learningGoals,
-  }
-
-  const attempt = {
-    "attemptNo": attemptNo,
     "score": score,
     "answers": answers,
   }
 
-  for (const lGoal of learningGoals) {
-    const hScore = await previousHighScore(lGoal, studentId);
-    quizObj.bestScore = score > hScore ? score : hScore;
-    await setDoc(doc(collectionRef, studentId, "quizResults", lGoal), quizObj);
-    await setDoc(doc(collectionRef, studentId, "quizResults", lGoal, "attempts", `attempt ${attempt.attemptNo}`), attempt);
-  }
+  await addDoc(collection(collectionRef, studentId, "quizResults"), quizObj);
+  // await setDoc(doc(collectionRef, studentId, "quizResults", `quiz${quizNo}`, "attempts", `attempt ${attempt.attemptNo}`), attempt);
 
-
+  // for(const lGoal of learningGoals){
+  //   const hScore = await previousHighScore(lGoal, studentId);
+  //   quizObj.bestScore = score > hScore ? score : hScore;
+  //   await setDoc(doc(collectionRef, studentId, "quizResults", lGoal), quizObj);
+  //   await setDoc(doc(collectionRef, studentId, "quizResults", lGoal, "attempts", `attempt ${attempt.attemptNo}`), attempt);
+  // }
 }
 
 export async function addProfessor(first, last, id, middleburyId, instructor) {
@@ -149,8 +144,23 @@ export async function getQuestions(learningGoals) {
       }
     })
   });
-  console.log(questions);
+  // console.log(questions);
   return questions;
+}
+
+export async function getAnswers(questions) {
+  const db = getFirestore();
+  const collectionSnapshot = await getDocs(collection(db, "queAnsObjs"))
+  const answers = [];
+  questions.forEach((que) => {
+    collectionSnapshot.forEach((document) => {
+      if (document.data().qID === que.qID) {
+        answers.push(document.data());
+      }
+    })
+  });
+  // console.log(answers);
+  return answers;
 }
 
 // Returns an array of learning goals

@@ -3,7 +3,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
-
+import PropTypes from "prop-types";
 // import { useUser } from "../contexts/UserContext";
 
 import {
@@ -12,21 +12,22 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
-import { addProfessor, addStudent } from "../utils/firebase-utils.mjs";
-
-export default function Login() {
+export default function Login({
+  newUser,
+  setNewUser,
+  instructor,
+  setInstructor,
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  middleburyId,
+  setMiddleburyId,
+}) {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [newUser, setNewUser] = useState(false);
-
-  const [instructor, setInstructor] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [middleburyId, setMiddleburyId] = useState("");
-
-  // const user = useUser();
 
   const registrationInputs = (
     <div>
@@ -65,28 +66,17 @@ export default function Login() {
     </div>
   );
 
-  // Adds the user to the corresponding database, saves whether they are an instructor in the db
-  const addUser = async () => {
-    if (instructor) {
-      await addProfessor(
-        firstName,
-        lastName,
-        user.uid,
-        middleburyId,
-        instructor
-      );
-    } else {
-      await addStudent(firstName, lastName, user.uid, middleburyId, instructor);
-    }
-  };
-
   const handleLogin = async () => {
     const auth = getAuth();
     if (newUser) {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
-        addUser();
-        router.push("/homePage");
+        // addUser();
+        if (instructor) {
+          router.push("/");
+        } else {
+          router.push("/");
+        }
       } catch (error) {
         if (error.message.includes("invalid-email")) {
           setErrorMessage(
@@ -104,7 +94,11 @@ export default function Login() {
     } else {
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        router.push("/");
+        if (instructor) {
+          router.push("/professor");
+        } else {
+          router.push("/");
+        }
       } catch (error) {
         if (error.message.includes("invalid-email")) {
           setErrorMessage(
@@ -200,3 +194,16 @@ export default function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  newUser: PropTypes.bool.isRequired,
+  setNewUser: PropTypes.func.isRequired,
+  instructor: PropTypes.bool.isRequired,
+  setInstructor: PropTypes.func.isRequired,
+  firstName: PropTypes.string.isRequired,
+  setFirstName: PropTypes.func.isRequired,
+  lastName: PropTypes.string.isRequired,
+  setLastName: PropTypes.func.isRequired,
+  middleburyId: PropTypes.string.isRequired,
+  setMiddleburyId: PropTypes.func.isRequired,
+};

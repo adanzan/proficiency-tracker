@@ -17,10 +17,11 @@ import useCurrentStudent from "../hooks/useCurrentStudent";
 // import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default function QuizPage({
-  data,
   learningGoals,
   setAttempt,
+  quizQuestions,
   setQuizQuestions,
+  instructor,
 }) {
   const user = useUser();
   const router = useRouter();
@@ -46,16 +47,15 @@ export default function QuizPage({
     handleClick();
   }
 
-  const isStudent = true; // Grab the user's identification if they are a student or instructor
-
   return user ? (
     <div className={styles.container}>
-      <UserHeader isStudent={isStudent} />
+      <UserHeader isStudent={instructor} />
       <main>
         <h1 className={styles.text}>Progress Tracker</h1>
         <Quiz
-          data={data}
           learningGoals={learningGoals}
+          quizQuestions={quizQuestions}
+          setQuizQuestions={setQuizQuestions}
           submitQuiz={submitQuiz}
         />
       </main>
@@ -71,8 +71,9 @@ export default function QuizPage({
 
 QuizPage.propTypes = {
   setAttempt: PropTypes.func.isRequired,
-  learningGoals: PropTypes.arrayOf(PropTypes.number).isRequired,
-  //attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
+  learningGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  quizQuestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   setQuizQuestions: PropTypes.func.isRequired,
-  data: PropTypes.any,
+  //attempt: PropTypes.arrayOf(PropTypes.object).isRequired,
+  instructor: PropTypes.bool.isRequired,
 };
