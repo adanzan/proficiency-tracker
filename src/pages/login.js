@@ -73,9 +73,9 @@ export default function Login({
         await createUserWithEmailAndPassword(auth, email, password);
         // addUser();
         if (instructor) {
-          router.push("/");
+          router.push("/professor");
         } else {
-          router.push("/");
+          router.push("/goals");
         }
       } catch (error) {
         if (error.message.includes("invalid-email")) {
@@ -97,7 +97,7 @@ export default function Login({
         if (instructor) {
           router.push("/professor");
         } else {
-          router.push("/");
+          router.push("/goals");
         }
       } catch (error) {
         if (error.message.includes("invalid-email")) {
