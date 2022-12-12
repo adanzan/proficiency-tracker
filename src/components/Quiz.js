@@ -29,7 +29,6 @@ export default function Quiz({
   // quizQuestions.forEach((element) => {
   //   attemptArray.push({ id: element.qID, answer: "" });
   // });
-
   const selectAnswer = (qID, selectedAnswer) => {
     const index = attemptArray.findIndex((q) => q.qID === qID);
     console.log(index);
