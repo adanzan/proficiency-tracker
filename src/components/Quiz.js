@@ -53,7 +53,7 @@ export default function Quiz({
 
   useEffect(() => {
     getData(learningGoals, setQuizQuestions);
-  }, []);
+  }, [learningGoals, setQuizQuestions]);
 
   const questions = [];
 
@@ -74,8 +74,7 @@ export default function Quiz({
 
   return (
     <div className={styles.round}>
-      Placeholder, will need to dynamically change quiz name
-      <h2>Quiz 1</h2>
+      <h2>Quiz</h2>
       {condition}
       <Button
         variant="outline-dark"
