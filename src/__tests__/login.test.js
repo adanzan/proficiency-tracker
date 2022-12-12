@@ -96,7 +96,7 @@ describe("Login: Log in page tests", () => {
     mockRouter.setCurrentUrl("/login");
   });
 
-  describe("Login: New user tests", () => {
+  describe.skip("Login: New user tests", () => {
     describe("Login: New user registration element tests", () => {});
 
     test.skip("Login: When new user, calls createUserWithEmailAndPassword", async () => {
@@ -164,7 +164,7 @@ describe("Login: Log in page tests", () => {
   });
 
   describe("Login: returning user tests", () => {
-    test("Login: When returning user, calls signInWithEmailAndPassword", async () => {
+    test.skip("Login: When returning user, calls signInWithEmailAndPassword", async () => {
       performLogin(
         oldUser.email,
         oldUser.password,

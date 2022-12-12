@@ -48,7 +48,7 @@ const questions = [
 
 //const learningGoals = ["1", "3"]
 
-describe("Quiz", () => {
+describe.skip("Quiz", () => {
   const testQuiz = questions.map((question) => ({ ...question }));
 
   test("Quiz: Answers recorded once after submit button clicked", () => {

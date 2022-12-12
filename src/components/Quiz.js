@@ -29,7 +29,6 @@ export default function Quiz({
   // quizQuestions.forEach((element) => {
   //   attemptArray.push({ id: element.qID, answer: "" });
   // });
-
   const selectAnswer = (qID, selectedAnswer) => {
     const index = attemptArray.findIndex((q) => q.qID === qID);
     console.log(index);
@@ -53,7 +52,7 @@ export default function Quiz({
 
   useEffect(() => {
     getData(learningGoals, setQuizQuestions);
-  }, []);
+  }, [learningGoals, setQuizQuestions]);
 
   const questions = [];
 
@@ -74,8 +73,7 @@ export default function Quiz({
 
   return (
     <div className={styles.round}>
-      Placeholder, will need to dynamically change quiz name
-      <h2>Quiz 1</h2>
+      <h2>Quiz</h2>
       {condition}
       <Button
         variant="outline-dark"

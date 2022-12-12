@@ -67,7 +67,7 @@ export default function QuizResults({ attempt, quizQuestions, answers }) {
 
   return (
     <div className={styles.round}>
-      <h2>Quiz 1 Results</h2>
+      <h2>Quiz Results</h2>
       {displayQuestionResults}
       <button type="button">View Learning Goal Progress</button>
     </div>
