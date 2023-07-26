@@ -4,12 +4,16 @@ A student proficiency tracker that has a professor view and a student view.
 > _This project is in an unfinished state._
 
 ## Features
-- TODO
+- Authentication using Firebase.
+- Students can take a quiz composed of multiple choice questions.
+- The questions are validated with the answers on the database.
+- The results are displayed for the user to see.
 
 ## Technologies Used
 - Javascript
 - Firebase
 - React
+- Next
 
 ## Authors
 
