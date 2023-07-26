@@ -12,8 +12,8 @@ A student proficiency tracker that has a professor view and a student view.
 ## Technologies Used
 - Javascript
 - Firebase
-- React
-- Next
+- React.js
+- Next.js
 
 ## Authors
 
