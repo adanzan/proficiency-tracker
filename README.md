@@ -1,7 +1,6 @@
 # Proficiency Tracker
 
 A student proficiency tracker that has a professor view and a student view.  
-> _This project is in an unfinished state._
 
 ## Features
 - Authentication using Firebase.
